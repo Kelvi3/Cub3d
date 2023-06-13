@@ -6,44 +6,37 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/03/01 18:10:09 by tcazenav         ###   ########.fr        #
+#    Updated: 2023/06/13 15:07:15 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = so_long
+NAME = cub3D
 
-SRC = ./src/main.c\
-	  ./src/error.c\
-	  ./src/get_next_line.c\
-	  ./src/get_next_line_utils.c\
-	  ./src/utils.c\
-	  ./src/error_bis.c\
-	  ./src/so_long.c\
-	  ./src/initialize_img.c\
-	  ./src/key_event.c\
-	  ./src/save_map.c\
-	  ./src/moov_player.c\
-	  ./src/free_all.c
+SRC = main.c \
 
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -g3 
+CC = clang
+
+CFLAGS = -Wall -Wextra -Werror
 
 OBJ = $(SRC:.c=.o)
 
 %.o: %.c
-	clang $(CFLAGS) -c $< -o $@
+	@clang $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		make -C mlx_linux -s
-		clang $(OBJ) mlx_linux/libmlx.a -Lmlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@make -C libft -s && echo "LIBFT COMPILED"
+	@make -C minilibx-linux -s && echo "MLX COMPILED"
+	@clang -s $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibix_linux -lXext -lX11 -lm -lz -o $(NAME) | echo "OBJ COMPILED"
 
 clean:
-		rm -f $(OBJ) $(OBJ_BONUS)
-		make clean -C mlx_linux -s
+	@rm -f $(OBJ) && echo "CLEAN OBJ"
+	@make clean -C libft -s && echo "LIBFT CLEANED"
+	@make clean -C minilibx-linux -s && echo "MINILIBX-LINUX CLEANED"
 
 fclean: clean
-		rm -f $(NAME) 
+		@rm -f $(NAME) && echo "CLEAN ALL"
 
 re: fclean all
 
