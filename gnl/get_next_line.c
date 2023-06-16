@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 13:17:52 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/13 15:09:20 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/06/15 15:15:00 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,11 @@ char	*ft_nextline(char *buf)
 	if (buf[i])
 		i++;
 	while (buf[i])
-		line[j++] = buf[i++];
+	{
+		line[j] = buf[i];
+		j++;
+		i++;
+	}
 	if (line[0] == '\0')
 	{
 		free(line);
