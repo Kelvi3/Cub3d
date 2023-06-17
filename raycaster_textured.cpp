@@ -86,7 +86,7 @@ int main(int /*argc*/, char */*argv*/[])
 
   screen(screenWidth,screenHeight, 0, "Raycaster");
 
-  //generate some textures
+ // generate some textures
 #if 0
   for(int x = 0; x < texWidth; x++)
   for(int y = 0; y < texHeight; y++)
