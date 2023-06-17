@@ -24,8 +24,8 @@ int	main(int argc, char **argv)
 	//int	mapHeight = 24;
 	long int i;
 
-	posX = 22.0;
-	posY = 11.5;
+	posX = 5.0;
+	posY = 3.0;
 	dirX = -1.0;
 	dirY = 0.0;
 	planeX = 0.0;
@@ -95,9 +95,11 @@ int	main(int argc, char **argv)
 		texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128;				 // flat grey texture
 		y++;
 	}
-	while (i < 8)
+	i = 0;
+	while (i < 1000)
 	{
-		for (int x = 0; x < w; x++)
+		x = 0;
+		while (x < w)
 		{
 			// calculate ray position and direction
 			double cameraX = 2 * x / (double)w - 1; // x-coordinate in camera space
@@ -162,6 +164,7 @@ int	main(int argc, char **argv)
 					side = 1;
 				}
 				// Check if ray has hit a wall
+				//printf("x = %i y = %i\n", mapX, mapY);
 				if (img.map[mapX][mapY] > 0)
 					hit = 1;
 			}
@@ -173,15 +176,17 @@ int	main(int argc, char **argv)
 				perpWallDist = (sideDistY - deltaDistY);
 
 			// Calculate height of line to draw on screen
+			printf("eeeeee = %i\n", h);
 			int lineHeight = (int)(h / perpWallDist);
-
-			int pitch = 100;
-
+			if (perpWallDist == 0)
+			{
+				perpWallDist = h;
+			}
 			// calculate lowest and highest pixel to fill in current stripe
-			int drawStart = -lineHeight / 2 + h / 2 + pitch;
+			int drawStart = -lineHeight / 2 + h / 2;
 			if (drawStart < 0)
 				drawStart = 0;
-			int drawEnd = lineHeight / 2 + h / 2 + pitch;
+			int drawEnd = lineHeight / 2 + h / 2;
 			if (drawEnd >= h)
 				drawEnd = h - 1;
 
@@ -197,6 +202,7 @@ int	main(int argc, char **argv)
 			wallX -= floor((wallX));
 
 			// x coordinate on the texture
+
 			int texX = (int)wallX * (double)texWidth;
 			if (side == 0 && rayDirX > 0)
 				texX = texWidth - texX - 1;
@@ -207,9 +213,10 @@ int	main(int argc, char **argv)
 			// How much to increase the texture coordinate per screen pixel
 			double step = 1.0 * texHeight / lineHeight;
 			// Starting texture coordinate
-			double texPos = (drawStart - pitch - h / 2 + lineHeight / 2) * step;
+			double texPos = (drawStart  - h / 2 + lineHeight / 2) * step;
 			int	y;
 			y = drawStart;
+			printf("y = %i drazend = %i\n", y, drawEnd);
 			while (y < drawEnd)
 			{
 				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
@@ -222,14 +229,18 @@ int	main(int argc, char **argv)
 				buffer[y][x] = color;
 				img.height = 64;
 				img.width = 64;
-				printf("y = %i x = %i\n", y, x);
-				mlx_pixel_put(img.mlx, img.mlx_win, y, x, buffer[0][0]);
+				printf("fniowfeow\n");
+				mlx_pixel_put(img.mlx, img.mlx_win, x, y, color);
+				mlx_pixel_put(img.mlx, img.mlx_win, x, y, color);
+				mlx_pixel_put(img.mlx, img.mlx_win, x, y, color);
+				mlx_pixel_put(img.mlx, img.mlx_win, x, y, color);
+				mlx_pixel_put(img.mlx, img.mlx_win, x, y, color);
 				//img.wall = mlx_xpm_file_to_image(img.mlx, "./img/grass.xpm",
 				//								 &img.width, &img.height);
 				//mlx_put_image_to_window(img.mlx, img.mlx_win, img.wall, x, y);
 				y++;
-	
 			}
+			x++;
 		}
 	}
 		//drawBuffer(buffer[0]);
