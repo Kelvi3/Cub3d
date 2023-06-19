@@ -2,28 +2,22 @@
 
 
 NO ./rscs/textures/wall/north.png
-
-
-                       SO ./rscs/textures/wall/south.png
-
+SO ./rscs/textures/wall/south.png
 WE ./rscs/textures/wall/west.png
-      EA ./rscs/textures/wall/east.png
+EA ./rscs/textures/wall/east.png
 
-  F                         255,100,0
-  C                                                     255,0,0
-
+ F 55,100,0
 
 
-
-11111111111111111111
-100000000000000E0001
-10000000000111111111
+1111110111 11111111
+10000000001 100E0001
+10000000001 11111111
 100000000001
 100000000001
-100000000001
-100000000001
-100000000001
-100000000001
+1000001100011
+100001 1000001
+100001 100001
+100000100001
 100000000001
 100000000001
 100000000001
@@ -31,3 +25,5 @@ WE ./rscs/textures/wall/west.png
 100000000001
 100000000001
 111111111111
+
+ aa

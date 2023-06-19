@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:18:03 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:09:15 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:41:38 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 static int	check_zero(t_data *map, int i, int j)
 {
+	if (j == 0 || i == 0)
+		return (1);
 	if (map->map[i][j + 1] != '1' && map->map[i][j + 1] != '0' \
 			&& not_player(map->map[i][j + 1]))
 		return (1);
-	if (j > 0 && map->map[i][j - 1] != '1' && map->map[i][j - 1] != '0' \
+	if (map->map[i][j - 1] != '1' && map->map[i][j - 1] != '0' \
 			&& not_player(map->map[i][j - 1]))
 		return (1);
 	if (map->map[i + 1][j] != '1' && map->map[i + 1][j] != '0' \
 			&& not_player(map->map[i + 1][j]))
 		return (1);
-	if (i > 0 && map->map[i - 1][j] != '1' && map->map[i - 1][j] != '0' \
+	if (map->map[i - 1][j] != '1' && map->map[i - 1][j] != '0' \
 			&& not_player(map->map[i - 1][j]))
 		return (1);
 	return (0);

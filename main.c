@@ -17,6 +17,8 @@ void	print_all(t_data map)
 	}
 }
 
+/*	./cub3D ./map	= error */
+
 int	main(int argc, char **argv)
 {
 	t_data	map;
@@ -31,10 +33,11 @@ int	main(int argc, char **argv)
 	add_all_cube(argv, &map);
 	if (parse(&map) == 1)
 	{
+		//print_all(map);
 		free_all(&map);
 		return (1);
 	}
-	print_all(map);
+	//print_all(map);
 	free_all(&map);
 	return (0);
 }

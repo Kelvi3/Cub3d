@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:42:13 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:01:22 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/06/19 16:28:57 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	search_index_map(t_data *map, int *i)
 	}
 	while (map->cub[*i] && map->cub[*i][0] == '\n' && map->cub[*i][1] == '\0')
 		*i += 1;
+	if (map->cub[*i] && map->cub[*i][0] != '\n')
+		*i -= 1;
 }
 
 static int	check_end_cub(t_data *map, int i)
@@ -92,7 +94,7 @@ int	copy_map(t_data *map)
 	z = 0;
 	search_index_map(map, &i);
 	size = count_size_map(map, i);
-	map->map = malloc(sizeof(char *) * (size + 1));
+	map->map = ft_calloc(sizeof(char *), (size + 1));
 	if (!map->map)
 		return (1);
 	while (map->cub[i] && z < size)
@@ -103,6 +105,5 @@ int	copy_map(t_data *map)
 	}
 	if (check_end_cub(map, i) == 1)
 		return (1);
-	map->map[z] = NULL;
 	return (0);
 }

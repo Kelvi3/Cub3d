@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/19 14:56:41 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/19 16:41:41 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = 	main.c \
 		parse/textures.c \
 		parse/textures_path.c \
 		parse/utils_parse.c \
+		parse/parse.c \
 		free_utils.c \
 
 CC = gcc
