@@ -1,0 +1,33 @@
+
+
+
+NO ./rscs/textures/wall/north.png
+
+
+            SO ./rscs/textures/wall/south.png
+
+WE ./rscs/textures/wall/west.png
+      EA ./rscs/textures/wall/east.png
+
+  F                         255,100,0
+  C                                                     255,0,0
+
+
+11111111111
+10S01
+10001
+10001
+10001
+10001
+ 10001111111
+  100000000011
+   100000000001
+   100000000001
+   100000000001
+   100000000001
+   10000000111
+  100000111
+ 1000011
+111111
+     
+11

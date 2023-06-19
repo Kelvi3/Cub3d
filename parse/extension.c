@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   check_extension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 10:05:53 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:13:12 by lulaens          ###   ########.fr       */
+/*   Created: 2023/06/19 14:25:18 by lulaens           #+#    #+#             */
+/*   Updated: 2023/06/19 14:26:04 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../cub3D.h"
 
-void	free_tab(char **tab)
+void	check_extension(char *str, char *ext)
 {
 	int	i;
+	int	j;
+	int	c;
 
+	c = 0;
 	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
+	j = 0;
+	while (str[i] != '.')
 		i++;
+	if (str[i] == ext[j])
+	{
+		while ((str[i] == ext[j]) && str[i] && ext[j])
+		{
+			c++;
+			i++;
+			j++;
+		}
 	}
-	free(tab);
-}
-
-void	free_all(t_data *map)
-{
-	if (map->cub)
-		free_tab(map->cub);
-	if (map->map)
-		free_tab(map->map);
-	if (map->ea)
-		free(map->ea);
-	if (map->no)
-		free(map->no);
-	if (map->so)
-		free(map->so);
-	if (map->we)
-		free(map->we);
-	if (map->color_c)
-		free(map->color_c);
-	if (map->color_f)
-		free(map->color_f);
+	if (c != 4 || str[i] != '\0')
+	{
+		ft_putstr_fd("Error extension\n", 2);
+		exit (1);
+	}
 }

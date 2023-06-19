@@ -6,7 +6,7 @@
 #    By: lulaens <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 14:15:24 by lulaens           #+#    #+#              #
-#    Updated: 2022/10/20 12:10:50 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/15 16:07:47 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ BONUS = ft_lstnew.c \
 		ft_lstiter.c \
 		ft_lstmap.c
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror -g
 
 .c.o:
 	gcc $(FLAGS) -c $< -o ${<:.c=.o}

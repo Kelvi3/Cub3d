@@ -6,22 +6,27 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/16 15:12:03 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/19 14:56:41 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 SRC = 	main.c \
-		parse/copy_cube_and_map.c \
-		parse/parse.c \
 		parse/check_map.c \
-		parse/parse_colors.c \
-		free_utils.c
+		parse/colors_int.c \
+		parse/colors_string.c \
+		parse/copy_cube_and_map.c \
+		parse/extension.c \
+		parse/in_map.c \
+		parse/textures.c \
+		parse/textures_path.c \
+		parse/utils_parse.c \
+		free_utils.c \
 
 CC = gcc
 
-CFLAGS = -ggdb
+CFLAGS = -Wall -Werror -Wextra -g
 
 OBJ = $(SRC:.c=.o)
 
