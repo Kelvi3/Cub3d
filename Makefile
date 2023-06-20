@@ -24,10 +24,11 @@ SRC = 	main.c \
 		parse/utils_parse.c \
 		parse/parse.c \
 		free_utils.c \
+		raycasting/raycasting.c \
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -I/usr/include -O3 -Wall -Werror -Wextra -g
 
 OBJ = $(SRC:.c=.o)
 
@@ -38,17 +39,19 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft && echo "LIBFT COMPILED"
-	##@make -C minilibx-linux -s && echo "MLX COMPILED"
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a -o $(NAME) | echo "OBJ COMPILED"
-## minilibx-linux/libmlx.a -Lminilibix_linux -lXext -lX11 -lm -lz 
+	@make -C ./minilibx-linux && echo "MLX COMPILED"
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) | echo "OBJ COMPILED"
+
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"
 	@make clean -C libft -s && echo "LIBFT CLEANED"
 	@make clean -C minilibx-linux -s && echo "MINILIBX-LINUX CLEANED"
 
 fclean: clean
-		@rm -f $(NAME) && echo "CLEAN ALL"
+			@rm -f $(NAME) && echo "CLEAN ALL"
 
 re: fclean all
 
 .PHONY : all clean fclean re
+
+
