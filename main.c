@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	add_all_cube(argv, &map);
 	if (parse(&map) == 1)
 	{
-		//print_all(map);
+		print_all(map);
 		free_all(&map);
 		return (1);
 	}

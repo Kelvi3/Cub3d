@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:42:13 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 16:28:57 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/06/20 12:01:33 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	size_zero_exit(t_data *map)
 {
-	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd("Error map\n", 2);
 	free_all(map);
 	exit(1);
 }
@@ -63,11 +63,9 @@ static void	search_index_map(t_data *map, int *i)
 	}
 	while (map->cub[*i] && map->cub[*i][0] == '\n' && map->cub[*i][1] == '\0')
 		*i += 1;
-	if (map->cub[*i] && map->cub[*i][0] != '\n')
-		*i -= 1;
 }
 
-static int	check_end_cub(t_data *map, int i)
+int	check_end_cub(t_data *map, int i)
 {
 	if (map->cub[i])
 	{
