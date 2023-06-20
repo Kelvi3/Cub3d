@@ -20,6 +20,11 @@ typedef struct s_data {
 	int		count_item;
 	int		item_map;
 	int		walk;
+	char	*addr;
+	void	*img;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_data;
 
 
