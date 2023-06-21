@@ -6,7 +6,7 @@
 #    By: lulaens <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 14:15:24 by lulaens           #+#    #+#              #
-#    Updated: 2023/06/21 10:09:34 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/21 10:14:25 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ BONUS = ft_lstnew.c \
 FLAGS = -Wall -Wextra -Werror -g
 
 .c.o:
-	gcc $(FLAGS) -c $< -o ${<:.c=.o}
+	clang $(FLAGS) -c $< -o ${<:.c=.o}
 
 OBJ=$(SRC:.c=.o)
 

@@ -14,12 +14,12 @@ void    raycasting(t_data map)
     int y;
     int w;
     int h;
-    double posX;
-    double posY; // x and y start position
-    double dirX;
-    double dirY; // initial direction vector
-    double planeX;
-    double planeY;
+    //double posX;
+    //double posY; // x and y start position
+    //double dirX;
+    //double dirY; // initial direction vector
+    //double planeX;
+    //double planeY;
     int texWidth;
     int texHeight;
     double cameraX;
@@ -44,13 +44,18 @@ void    raycasting(t_data map)
     double step;
     double texPos;
 
-    posX = 4.0;
+    /*posX = 4.0;
     posY = 3.0;
     dirX = 0.0;
-    dirY = -1.0;
+    dirY = -1.0;*/
+    
+	img.posX = 4.0;
+    img.posY = 3.0;
+    img.dirX = -1.0;
+    img.dirY = 0.0;
     // TODO : create function vecteur for get dirX dirY
-    planeX = 0.0;
-    planeY = 0.66;
+    img.planeX = 0.0;
+    img.planeY = 0.66;
     texWidth = 64;
     texHeight = 64;
     img.mlx = mlx_init();
@@ -60,13 +65,13 @@ void    raycasting(t_data map)
     img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
     img.img = mlx_new_image(img.mlx, 1280, 720);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    if (dirX == 1.0 && dirY == 0.0)
+    if (img.dirX == 1.0 && img.dirY == 0.0)
         color = 0x808000; // SUD
-    if (dirX == 0.0 && dirY == 1.0)
+    if (img.dirX == 0.0 && img.dirY == 1.0)
         color = 0xC0C0C0; // NORD
-    if (dirX == -1.0 && dirY == 0.0)
+    if (img.dirX == -1.0 && img.dirY == 0.0)
         color = 0xFFFF00; // WEST
-    if (dirX == 0.0 && dirY == -1.0)
+    if (img.dirX == 0.0 && img.dirY == -1.0)
         color = 0x00FFFF; // EST
     w = 1280;
     h = 720;
@@ -75,10 +80,10 @@ void    raycasting(t_data map)
     while (x < w)
     {
         cameraX = 2 * (double)x / (double)w - 1;
-        rayDirX = dirX + planeX * cameraX;
-        rayDirY = dirY + planeY * cameraX;
-        mapX = (int)posX;
-        mapY = (int)posY;
+        rayDirX = img.dirX + img.planeX * cameraX;
+        rayDirY = img.dirY + img.planeY * cameraX;
+        mapX = (int)img.posX;
+        mapY = (int)img.posY;
 
         if (rayDirX == 0.0)
             deltaDistX = 1e30;
@@ -93,23 +98,23 @@ void    raycasting(t_data map)
         if (rayDirX < 0)
         {
             stepX = -1;
-            sideDistX = ((double)posX - (double)mapX) * deltaDistX;
+            sideDistX = ((double)img.posX - (double)mapX) * deltaDistX;
         }
         else
         {
             stepX = 1;
-            sideDistX = ((double)mapX + 1.0 - (double)posX) * deltaDistX;
+            sideDistX = ((double)mapX + 1.0 - (double)img.posX) * deltaDistX;
         }
 
         if (rayDirY < 0.0)
         {
             stepY = -1;
-            sideDistY = ((double)posY - (double)mapY) * deltaDistY;
+            sideDistY = ((double)img.posY - (double)mapY) * deltaDistY;
         }
         else
         {
             stepY = 1;
-            sideDistY = ((double)mapY + 1.0 - (double)posY) * deltaDistY;
+            sideDistY = ((double)mapY + 1.0 - (double)img.posY) * deltaDistY;
         }
 
         hit = 0;
@@ -147,11 +152,10 @@ void    raycasting(t_data map)
         if (drawEnd >= h)
             drawEnd = h - 1;
 
-        //texNum = (int)img.map.map[mapX][mapY] - 1;
         if (side == 0)
-            wallX = posY + perpWallDist * rayDirY;
+            wallX = img.posY + perpWallDist * rayDirY;
         else
-            wallX = posX + perpWallDist * rayDirX;
+            wallX = img.posX + perpWallDist * rayDirX;
         wallX -= wallX;
 
         texX = (int)wallX * texWidth;
@@ -166,7 +170,6 @@ void    raycasting(t_data map)
         y = drawStart;
         while (y < drawEnd)
         {
-           // texY = (int)texPos & (texHeight - 1);
             texPos += step;
             my_mlx_pixel_put(&img, x, y, color);
             y++;

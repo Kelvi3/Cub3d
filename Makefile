@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/21 10:08:04 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/21 10:17:57 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,10 @@ $(NAME): $(OBJ)
 	@make -C libft
 	@make -C minilibx-linux
 
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a -o $(NAME) | echo "OBJ COMPILED"
-	@make -C libft && echo "LIBFT COMPILED"
-	@make -C ./minilibx-linux && echo "MLX COMPILED"
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) | echo "OBJ COMPILED"
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a -o $(NAME)
+	@make -C libft
+	@make -C ./minilibx-linux
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"

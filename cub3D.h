@@ -44,6 +44,12 @@ typedef struct	s_map
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
 	t_data	map;
 }				t_map;
 
