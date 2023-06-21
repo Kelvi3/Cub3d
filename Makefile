@@ -26,7 +26,7 @@ SRC = 	main.c \
 		free_utils.c \
 		raycasting/raycasting.c \
 
-CC = gcc
+CC = clang
 
 CFLAGS = -I/usr/include -O3 -Wall -Werror -Wextra -g
 

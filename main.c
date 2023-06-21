@@ -37,8 +37,8 @@ int	main(int argc, char **argv)
 		free_all(&map);
 		return (1);
 	}
-	raycasting(map);
 	print_all(map);
+	raycasting(map);
 	free_all(&map);
 	return (0);
 }
