@@ -79,6 +79,6 @@ void	free_tab(char **tab);
 void	free_all(t_data *map);
 
 /* RAYCASTING */
-void	raycasting(t_data map);
+t_map	raycasting(t_data map, t_map img);
 
 #endif
