@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 

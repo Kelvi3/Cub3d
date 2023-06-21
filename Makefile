@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/19 16:41:41 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/20 17:56:43 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC = 	main.c \
 		parse/parse.c \
 		free_utils.c \
 
-CC = gcc
+CC = clang
 
 CFLAGS = -Wall -Werror -Wextra -g
 
@@ -37,10 +37,10 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C libft && echo "LIBFT COMPILED"
-	##@make -C minilibx-linux -s && echo "MLX COMPILED"
+	@make -C libft
+	@make -C minilibx-linux
+
 	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a -o $(NAME) | echo "OBJ COMPILED"
-## minilibx-linux/libmlx.a -Lminilibix_linux -lXext -lX11 -lm -lz 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"
 	@make clean -C libft -s && echo "LIBFT CLEANED"
