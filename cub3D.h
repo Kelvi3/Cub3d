@@ -7,7 +7,16 @@
 # include <stdlib.h>
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
+# include "minilibx-linux/mlx.h"
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <fcntl.h>
+# include <limits.h>
+# include <string.h>
+
+typedef struct s_data t_data;
 
 typedef struct s_data
 {
@@ -23,6 +32,20 @@ typedef struct s_data
 	int		colorc[3];
 
 }				t_data;
+
+typedef struct	s_map
+{
+	void	*mlx_win;
+	void	*mlx;
+	char	*addr;
+	void	*img;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_data	map;
+}				t_map;
 
 		/*	PARSE	*/
 char	*get_next_line(int fd);
@@ -49,5 +72,8 @@ void	pass_space(char *str, int *i);
 		/*	UTILS	*/
 void	free_tab(char **tab);
 void	free_all(t_data *map);
+
+/* RAYCASTING */
+void	raycasting(t_data map);
 
 #endif
