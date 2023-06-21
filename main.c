@@ -19,9 +19,44 @@ void	print_all(t_data map)
 
 /*	./cub3D ./map	= error */
 
+int	change_map(int keycode, t_map *img)
+{
+	if (keycode == 119)
+	{
+		if (!img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY])
+			img->posX += img->dirX * 1.0;
+		// look_nord
+	}
+	if (keycode == 97)
+	{
+		return (1);
+	}	//look_ouest
+	if (keycode == 115)
+	{
+		return (1);
+		//look_sud
+	}
+	if (keycode == 100)
+	{
+		return (1);
+		//look_est
+	}
+	if (keycode == 65307)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+void	moov_camera(t_map img)
+{
+	mlx_key_hook(img.mlx_win, &change_map, &img);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	map;
+	t_map	img;
 
 	if (argc != 2)
 	{
@@ -38,7 +73,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	print_all(map);
-	raycasting(map);
+	img.mlx = mlx_init();
+	if (!img.mlx)
+		return (2);
+	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
+	img.img = mlx_new_image(img.mlx, 1280, 720);
+	img = raycasting(map, img);
+	moov_camera(img);
+	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);
 }

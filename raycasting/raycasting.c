@@ -6,20 +6,13 @@ void my_mlx_pixel_put(t_map *data, int x, int y, int color)
         ((int *)data->addr)[y * 1280 + x] = color;
 }
 
-void    raycasting(t_data map)
+t_map   raycasting(t_data map, t_map img)
 {
-    t_map   img;
     int     color;
     int x;
     int y;
     int w;
     int h;
-    //double posX;
-    //double posY; // x and y start position
-    //double dirX;
-    //double dirY; // initial direction vector
-    //double planeX;
-    //double planeY;
     int texWidth;
     int texHeight;
     double cameraX;
@@ -53,12 +46,7 @@ void    raycasting(t_data map)
     img.planeY = 0.66;
     texWidth = 64;
     texHeight = 64;
-    img.mlx = mlx_init();
-    if (!img.mlx)
-        return ;
     img.map = map;
-    img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
-    img.img = mlx_new_image(img.mlx, 1280, 720);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     if (img.dirX == 1.0 && img.dirY == 0.0)
         color = 0x808000; // SUD
@@ -172,7 +160,7 @@ void    raycasting(t_data map)
         x++;
     }
     mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
-    mlx_loop(img.mlx);
+    return (img);
 }
 
 // include all
