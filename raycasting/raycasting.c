@@ -44,15 +44,10 @@ void    raycasting(t_data map)
     double step;
     double texPos;
 
-    /*posX = 4.0;
-    posY = 3.0;
-    dirX = 0.0;
-    dirY = -1.0;*/
-    
 	img.posX = 4.0;
     img.posY = 3.0;
-    img.dirX = -1.0;
-    img.dirY = 0.0;
+    img.dirX = 0.0;
+    img.dirY = -1.0;
     // TODO : create function vecteur for get dirX dirY
     img.planeX = 0.0;
     img.planeY = 0.66;
