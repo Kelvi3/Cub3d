@@ -6,15 +6,14 @@ void my_mlx_pixel_put(t_map *data, int x, int y, int color)
         ((int *)data->addr)[y * 1280 + x] = color;
 }
 
-t_map   raycasting(t_data map, t_map img)
+t_map raycasting(t_data map, t_map img)
 {
-    int     color;
+    int color;
     int x;
     int y;
     int w;
     int h;
     int texWidth;
-    int texHeight;
     double cameraX;
     double rayDirX;
     double rayDirY;
@@ -34,11 +33,8 @@ t_map   raycasting(t_data map, t_map img)
     int drawEnd;
     double wallX;
     int texX;
-    double step;
-    double texPos;
 
     texWidth = 64;
-    texHeight = 64;
     img.map = map;
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	if (img.dirX == 1.0 && img.dirY == 0.0)
@@ -50,13 +46,14 @@ t_map   raycasting(t_data map, t_map img)
     if (img.dirX == 0.0 && img.dirY == -1.0)
         color = 0x00FFFF; // EST
  //   color = mlx_get_color_value(img.img, color);
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     w = 1280;
     h = 720;
     y = 0;
     x = 0;
     while (x < w)
     {
-        cameraX = 2 * (double)x / (double)w - 1;
+        cameraX = 2.0 * (double)x / (double)w - 1.0;
         rayDirX = img.dirX + img.planeX * cameraX;
         rayDirY = img.dirY + img.planeY * cameraX;
         mapX = (int)img.posX;
@@ -72,26 +69,26 @@ t_map   raycasting(t_data map, t_map img)
         else
             deltaDistY = fabs(1.0 / rayDirY);
 
-        if (rayDirX < 0)
+        if (rayDirX < 0.0)
         {
-           stepX = -1;
-            sideDistX = ((double)img.posX - (double)mapX) * deltaDistX;
+            stepX = -1;
+            sideDistX = (double)(img.posX - (double)mapX) * deltaDistX;
         }
         else
         {
             stepX = 1;
-            sideDistX = ((double)mapX + 1.0 - (double)img.posX) * deltaDistX;
+            sideDistX = ((double)mapX + 1.0 - img.posX) * deltaDistX;
         }
 
         if (rayDirY < 0.0)
         {
             stepY = -1;
-            sideDistY = ((double)img.posY - (double)mapY) * deltaDistY;
+            sideDistY = (img.posY - (double)mapY) * deltaDistY;
         }
         else
         {
             stepY = 1;
-            sideDistY = ((double)mapY + 1.0 - (double)img.posY) * deltaDistY;
+            sideDistY = ((double)mapY + 1.0 - img.posY) * deltaDistY;
         }
 
         hit = 0;
@@ -109,7 +106,7 @@ t_map   raycasting(t_data map, t_map img)
                 mapY += stepY;
                 side = 1;
             }
-            if (img.map.map[mapX][mapY] > '0')
+            if (img.map.map[mapX][mapY] == '1')
                 hit = 1;
         }
 
@@ -117,10 +114,7 @@ t_map   raycasting(t_data map, t_map img)
             perpWallDist = (sideDistX - deltaDistX);
         else
             perpWallDist = (sideDistY - deltaDistY);
-        if (perpWallDist == 0.0)
-            perpWallDist = 1.0;
-
-        lineHeight = h / (int)perpWallDist;
+        lineHeight = (int)((double)h / perpWallDist);
 
         drawStart = -lineHeight / 2 + h / 2;
         if (drawStart < 0)
@@ -135,20 +129,25 @@ t_map   raycasting(t_data map, t_map img)
             wallX = img.posX + perpWallDist * rayDirX;
         wallX -= wallX;
 
-        texX = (int)wallX * texWidth;
+        texX = (int)(wallX * (double)texWidth);
         if (side == 0 && rayDirX > 0.0)
             texX = texWidth - texX - 1;
         if (side == 1 && rayDirY < 0.0)
             texX = texWidth - texX - 1;
 
-        step = 1.0 * (double)texHeight / (double)lineHeight;
-        texPos = ((double)drawStart - (double)h / 2 + (double)lineHeight / 2) * step;
-
         y = drawStart;
         while (y < drawEnd)
         {
-            texPos += step;
 			my_mlx_pixel_put(&img, x, y, color);
+            if (img.dirX == 1.0 && img.dirY == 0.0)
+                color = 0xff0255; // SUD
+            if (img.dirX == 0.0 && img.dirY == 1.0)
+                color = 0xC0C0C0; // NORD
+            if (img.dirX == -1.0 && img.dirY == 0.0)
+                color = 0xFFFF00; // WEST
+            if (img.dirX == 0.0 && img.dirY == -1.0)
+                color = 0x00FFFF; // EST
+            my_mlx_pixel_put(&img, x, y, color);
             y++;
         }
         x++;
