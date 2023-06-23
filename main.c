@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-void	print_all(t_data map)
+void print_all(t_data map)
 {
 	printf("NO = %s\n", map.no);
 	printf("SO = %s\n", map.so);
@@ -9,7 +9,7 @@ void	print_all(t_data map)
 
 	printf("F = %s\n", map.color_f);
 	printf("C = %s\n", map.color_c);
-	int	i = 0;
+	int i = 0;
 	while (map.map[i])
 	{
 		printf("%s", map.map[i]);
@@ -19,20 +19,28 @@ void	print_all(t_data map)
 
 /*	./cub3D ./map	= error */
 
-int	change_map(int keycode, t_map *img)
+int change_map(int keycode, t_map *img)
 {
-	double	oldDirX;
-	double	oldPlaneX;
-	double	rotSpeed;
+	double oldDirX;
+	double oldPlaneX;
+	double rotSpeed;
+	double	movespeed;
 
-	rotSpeed = 0.2;
+	rotSpeed = 0.5;
+	movespeed = 0.1;
 	if (keycode == 119)
 	{
-		printf("NORD\n");
-		if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
-			img->posX += img->dirX * 0.1;
-		if (img->map.map[(int)img->posX][(int)img->posY + (int)img->dirY * 1] != '1')
-			img->posY += img->dirY * 0.1;
+		printf("la = = %c\n", img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY]);
+		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
+		{
+			img->posX += img->dirX * movespeed;
+			printf("NORD dir X\n");
+		}
+		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
+		{
+			printf("NORD dir Y\n");
+			img->posY += img->dirY * movespeed;
+		}
 	}
 	if (keycode == 97)
 	{
@@ -46,12 +54,17 @@ int	change_map(int keycode, t_map *img)
 	} // look_ouest
 	if (keycode == 115)
 	{
-		printf("SUD\n");
-		if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
-			img->posX -= img->dirX * 0.1;
-		if (img->map.map[(int)img->posX][(int)img->posY + (int)img->dirY * 1] != '1')
-			img->posY -= img->dirY * 0.1;
-		//look_sud
+		if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
+		{
+			img->posX -= img->dirX * movespeed;
+			printf("SUD dir X\n");
+		}
+		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1)] != '1')
+		{
+			img->posY -= img->dirY * movespeed;
+			printf("SUD dir Y\n");
+		}
+		// look_sud
 	}
 	if (keycode == 100)
 	{
@@ -62,7 +75,7 @@ int	change_map(int keycode, t_map *img)
 		oldPlaneX = img->planeX;
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
-		//look_est
+		// look_est
 	}
 	if (keycode == 65307)
 	{
@@ -71,6 +84,7 @@ int	change_map(int keycode, t_map *img)
 		mlx_destroy_display(img->mlx);
 		return (0);
 	}
+	//print_all(img->map);
 	printf("dirx = %f\n", img->dirX);
 	printf("dirY = %f\n", img->dirY);
 	printf("planeX = %f\n", img->planeX);
@@ -81,10 +95,65 @@ int	change_map(int keycode, t_map *img)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+t_map get_pos_player(t_data map, t_map img)
 {
-	t_data	map;
-	t_map	img;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	img.dirX = 0.0;
+	img.dirY = 0.0;
+	while (map.map[i])
+	{
+		j = 0;
+		while (map.map[i][j] != '\0' && map.map[i][j] != '\n')
+		{
+			if (map.map[i][j] == 'E' || map.map[i][j] == 'W'
+				|| map.map[i][j] == 'S' || map.map[i][j] == 'N')
+			{
+				img.posX = (double)i + 0.5;
+				img.posY = (double)j + 0.5;
+				if (map.map[i][j] == 'S')
+				{
+					img.dirX = 1.0;
+					img.dirY = 0.0;
+				}
+				if (map.map[i][j] == 'N')
+				{
+					img.dirX = 0.0;
+					img.dirY = 1.0;
+				}
+				if (map.map[i][j] == 'W')
+				{
+					img.dirX = -1.0;
+					img.dirY = 0.0;
+				}
+				if (map.map[i][j] == 'E')
+				{
+					img.dirX = 0.0;
+					img.dirY = -1.0;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	if (img.dirX == 1.0 && img.dirY == 0.0)
+		printf("regarde au SUD posX = %f posY = %f\n", img.posX, img.posY);
+	if (img.dirX == 0.0 && img.dirY == 1.0)
+		printf("regarde au NORD posX = %f posY = %f\n", img.posX, img.posY);
+	if (img.dirX == -1.0 && img.dirY == 0.0)
+		printf("regarde a l WEST posX = %f posY = %f\n", img.posX, img.posY);
+	if (img.dirX == 0.0 && img.dirY == -1.0)
+		printf("regarde a l EST posX = %f posY = %f\n", img.posX, img.posY);
+	return (img);
+}
+
+int main(int argc, char **argv)
+{
+	t_data map;
+	t_map img;
 
 	if (argc != 2)
 	{
@@ -104,11 +173,7 @@ int	main(int argc, char **argv)
 	img.mlx = mlx_init();
 	if (!img.mlx)
 		return (2);
-	img.posX = 3.5;
-	img.posY = 3.5;
-	img.dirX = -1.0;
-	img.dirY = 0.0;
-	// TODO : create function vecteur for get dirX dirY
+	img = get_pos_player(map, img);
 	img.planeX = 0.0;
 	img.planeY = 0.66;
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
