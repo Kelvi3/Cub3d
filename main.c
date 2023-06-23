@@ -29,12 +29,10 @@ int	change_map(int keycode, t_map *img)
 	if (keycode == 119)
 	{
 		printf("NORD\n");
-		/*if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
+		if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
 			img->posX += img->dirX * 0.1;
 		if (img->map.map[(int)img->posX][(int)img->posY + (int)img->dirY * 1] != '1')
-		*/
-		img->posX += img->dirX * 0.1;
-		img->posY += img->dirY * 0.1;
+			img->posY += img->dirY * 0.1;
 	}
 	if (keycode == 97)
 	{
@@ -49,12 +47,10 @@ int	change_map(int keycode, t_map *img)
 	if (keycode == 115)
 	{
 		printf("SUD\n");
-		/*if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
+		if (img->map.map[(int)img->posX + (int)img->dirX * 1][(int)img->posY] != '1')
 			img->posX -= img->dirX * 0.1;
 		if (img->map.map[(int)img->posX][(int)img->posY + (int)img->dirY * 1] != '1')
-		*/
-		img->posX -= img->dirX * 0.1;
-		img->posY -= img->dirY * 0.1;
+			img->posY -= img->dirY * 0.1;
 		//look_sud
 	}
 	if (keycode == 100)
