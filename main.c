@@ -1,4 +1,5 @@
 #include "cub3D.h"
+#include "minilibx-linux/mlx.h"
 
 void	print_all(t_data map)
 {
@@ -77,8 +78,10 @@ int	main(int argc, char **argv)
 	if (!img.mlx)
 		return (2);
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
+	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	img.img = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img);
+	img = floorcasting(map, img);
 	moov_camera(img);
 	mlx_loop(img.mlx);
 	free_all(&map);

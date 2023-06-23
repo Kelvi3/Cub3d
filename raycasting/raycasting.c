@@ -39,8 +39,8 @@ t_map   raycasting(t_data map, t_map img)
 
 	img.posX = 4.0;
     img.posY = 3.0;
-    img.dirX = 0.0;
-    img.dirY = -1.0;
+    img.dirX = 1.0;
+    img.dirY = 0.0;
     // TODO : create function vecteur for get dirX dirY
     img.planeX = 0.0;
     img.planeY = 0.66;
