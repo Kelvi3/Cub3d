@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.c                                       :+:      :+:    :+:   */
+/*   textures_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:34:28 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 13:41:27 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/06/23 14:10:42 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+#include <fcntl.h>
+
+static int	open_path(t_data *map)
+{
+	printf("%s\n", map->ea);
+	if (open(map->ea, O_RDONLY) == -1)
+		return (1);
+	if (open(map->so, O_RDONLY) == -1)
+		return (1);
+	if (open(map->we, O_RDONLY) == -1)
+		return (1);
+	if (open(map->no, O_RDONLY) == -1)
+		return (1);
+	return (0);
+}
 
 int	check_path(t_data *map)
 {
@@ -18,6 +33,11 @@ int	check_path(t_data *map)
 	{
 		ft_putstr_fd("Error path\n", 2);
 		return (1);
+	}
+	if (open_path(map) == 1)
+	{
+		//ft_putstr_fd("Error path\n", 2);
+		return (0);
 	}
 	return (0);
 }

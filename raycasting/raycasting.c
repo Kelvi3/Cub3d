@@ -37,18 +37,11 @@ t_map   raycasting(t_data map, t_map img)
     double step;
     double texPos;
 
-	img.posX = 4.0;
-    img.posY = 3.0;
-    img.dirX = 1.0;
-    img.dirY = 0.0;
-    // TODO : create function vecteur for get dirX dirY
-    img.planeX = 0.0;
-    img.planeY = 0.66;
     texWidth = 64;
     texHeight = 64;
     img.map = map;
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    if (img.dirX == 1.0 && img.dirY == 0.0)
+	if (img.dirX == 1.0 && img.dirY == 0.0)
         color = 0x808000; // SUD
     if (img.dirX == 0.0 && img.dirY == 1.0)
         color = 0xC0C0C0; // NORD
@@ -56,6 +49,7 @@ t_map   raycasting(t_data map, t_map img)
         color = 0xFFFF00; // WEST
     if (img.dirX == 0.0 && img.dirY == -1.0)
         color = 0x00FFFF; // EST
+ //   color = mlx_get_color_value(img.img, color);
     w = 1280;
     h = 720;
     y = 0;
@@ -80,7 +74,7 @@ t_map   raycasting(t_data map, t_map img)
 
         if (rayDirX < 0)
         {
-            stepX = -1;
+           stepX = -1;
             sideDistX = ((double)img.posX - (double)mapX) * deltaDistX;
         }
         else
@@ -154,12 +148,12 @@ t_map   raycasting(t_data map, t_map img)
         while (y < drawEnd)
         {
             texPos += step;
-            my_mlx_pixel_put(&img, x, y, color);
+			my_mlx_pixel_put(&img, x, y, color);
             y++;
         }
         x++;
     }
-    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
+	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
     return (img);
 }
 
