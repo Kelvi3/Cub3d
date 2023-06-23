@@ -26,8 +26,8 @@ int change_map(int keycode, t_map *img)
 	double rotSpeed;
 	double	movespeed;
 
-	rotSpeed = 0.5;
-	movespeed = 0.1;
+	rotSpeed = 0.2;
+	movespeed = 0.5;
 	if (keycode == 119)
 	{
 		printf("la = = %c\n", img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY]);
@@ -59,7 +59,7 @@ int change_map(int keycode, t_map *img)
 			img->posX -= img->dirX * movespeed;
 			printf("SUD dir X\n");
 		}
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1)] != '1')
+		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 		{
 			img->posY -= img->dirY * movespeed;
 			printf("SUD dir Y\n");

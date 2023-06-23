@@ -36,15 +36,21 @@ t_map raycasting(t_data map, t_map img)
 
     texWidth = 64;
     img.map = map;
-    if (img.dirX == 1.0 && img.dirY == 0.0)
-        color = 0xff0255; // SUD
-    if (img.dirX == 0.0 && img.dirY == 1.0)
-        color = 0xC0C0C0; // NORD
-    if (img.dirX == -1.0 && img.dirY == 0.0)
-        color = 0xFFFF00; // WEST
-    if (img.dirX == 0.0 && img.dirY == -1.0)
-        color = 0x00FFFF; // EST
+    color = 0x000000; // SUD
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    x = 0;
+    y = 0;
+   while (x < 1280)
+    {
+        y = 0;
+        while (y < 720)
+        {
+            ((int *)img.addr)[y * 1280 + x] = color;
+            y++;
+        }
+        x++;
+    }
+    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
     w = 1280;
     h = 720;
     y = 0;
