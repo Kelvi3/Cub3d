@@ -27,8 +27,8 @@ int change_map(int keycode, t_map *img)
 	double rotSpeed;
 	double	movespeed;
 
-	rotSpeed = 0.5;
-	movespeed = 0.1;
+	rotSpeed = 0.2;
+	movespeed = 0.5;
 	if (keycode == 119)
 	{
 		printf("la = = %c\n", img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY]);
@@ -60,7 +60,7 @@ int change_map(int keycode, t_map *img)
 			img->posX -= img->dirX * movespeed;
 			printf("SUD dir X\n");
 		}
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1)] != '1')
+		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 		{
 			img->posY -= img->dirY * movespeed;
 			printf("SUD dir Y\n");
@@ -174,10 +174,6 @@ int main(int argc, char **argv)
 	img.mlx = mlx_init();
 	if (!img.mlx)
 		return (2);
-	img.posX = 3.5;
-	img.posY = 3.5;
-	img.dirX = 0.0;
-	img.dirY = 1.0;
 	// TODO : create function vecteur for get dirX dirY
 	img.map = map;
 	img = get_pos_player(map, img);
@@ -187,10 +183,10 @@ int main(int argc, char **argv)
 	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	int h = 64;
 	int	w = 64;
-	img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
-	img.img = mlx_new_image(img.mlx, 1280, 720);
+//	img.img = mlx_new_image(img.mlx, 1280, 720);
 	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	img = floorcasting(map, img);
+	img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
 	img = raycasting(map, img);
 	//moov_camera(img);
 	mlx_key_hook(img.mlx_win, &change_map, &img);
