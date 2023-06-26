@@ -42,7 +42,7 @@ int change_map(int keycode, t_map *img)
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
-	if (keycode == 97)
+	if (keycode == 65363)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
@@ -51,7 +51,7 @@ int change_map(int keycode, t_map *img)
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
 	} // tourne_camera droite
-	if (keycode == 100)
+	if (keycode == 65361)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
@@ -97,7 +97,7 @@ t_map get_pos_player(t_data map, t_map img)
 				}
 				if (map.map[i][j] == 'N')
 				{
-					img.dirX = 0.0;
+					img.dirX = 0.5;
 					img.dirY = 1.0;
 				}
 				if (map.map[i][j] == 'W')
