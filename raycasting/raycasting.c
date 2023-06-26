@@ -143,13 +143,14 @@ t_map raycasting(t_data map, t_map img)
         while (y < drawEnd)
         {
             if (img.dirX == 1.0 && img.dirY == 0.0)
-                color = 0xff0255; // SUD
+                color = 0x05ff00; // SUD
             if (img.dirX == 0.0 && img.dirY == 1.0)
-                color = 0xC0C0C0; // NORD
+                color = 0x05ff00; // NORD
             if (img.dirX == -1.0 && img.dirY == 0.0)
-                color = 0xFFFF00; // WEST
+                color = 0x05ff00; // WEST
             if (img.dirX == 0.0 && img.dirY == -1.0)
-                color = 0x00FFFF; // EST
+                color = 0x05ff00; // EST
+            color = 0x05ff00;
             my_mlx_pixel_put(&img, x, y, color);
             y++;
         }
