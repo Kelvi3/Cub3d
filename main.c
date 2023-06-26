@@ -31,67 +31,43 @@ int change_map(int keycode, t_map *img)
 	movespeed = 0.5;
 	if (keycode == 119)
 	{
-		printf("la = = %c\n", img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY]);
 		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
-		{
 			img->posX += img->dirX * movespeed;
-			printf("NORD dir X\n");
-		}
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
-		{
-			printf("NORD dir Y\n");
 			img->posY += img->dirY * movespeed;
-		}
-	}
-	if (keycode == 97)
-	{
-		printf("OUEST\n");
-		oldDirX = img->dirX;
-		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
-		img->dirY = oldDirX * sin(rotSpeed) + img->dirY * cos(rotSpeed);
-		oldPlaneX = img->planeX;
-		img->planeX = img->planeX * cos(rotSpeed) - img->planeY * sin(rotSpeed);
-		img->planeY = oldPlaneX * sin(rotSpeed) + img->planeY * cos(rotSpeed);
-	} // look_ouest
+	} // avant
 	if (keycode == 115)
 	{
 		if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
-		{
 			img->posX -= img->dirX * movespeed;
-			printf("SUD dir X\n");
-		}
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
-		{
 			img->posY -= img->dirY * movespeed;
-			printf("SUD dir Y\n");
-		}
-		// look_sud
-	}
-	if (keycode == 100)
+	} // recule
+	if (keycode == 97)
 	{
-		printf("EST\n");
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
 		img->dirY = oldDirX * sin(-rotSpeed) + img->dirY * cos(-rotSpeed);
 		oldPlaneX = img->planeX;
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
-		// look_est
-	}
-	if (keycode == 65307)
+	} // tourne_camera droite
+	if (keycode == 100)
+	{
+		oldDirX = img->dirX;
+		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
+		img->dirY = oldDirX * sin(rotSpeed) + img->dirY * cos(rotSpeed);
+		oldPlaneX = img->planeX;
+		img->planeX = img->planeX * cos(rotSpeed) - img->planeY * sin(rotSpeed);
+		img->planeY = oldPlaneX * sin(rotSpeed) + img->planeY * cos(rotSpeed);
+	} // tourne camera gauche
+	if (keycode == 65307) // ESC
 	{
 		mlx_loop_end(img->mlx);
 		mlx_destroy_window(img->mlx, img->mlx_win);
 		mlx_destroy_display(img->mlx);
 		return (0);
 	}
-	//print_all(img->map);
-	printf("dirx = %f\n", img->dirX);
-	printf("dirY = %f\n", img->dirY);
-	printf("planeX = %f\n", img->planeX);
-	printf("PLaneY = %f\n", img->planeY);
-	printf("posy = %f\n", img->posX);
-	printf("posx = %f\n--------------\n", img->posY);
 	*img = raycasting(img->map, *img);
 	return (0);
 }
@@ -181,12 +157,12 @@ int main(int argc, char **argv)
 	img.planeY = 0.66;
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
 	img.floor = mlx_new_image(img.mlx, 1280, 720);
-	int h = 64;
-	int	w = 64;
-//	img.img = mlx_new_image(img.mlx, 1280, 720);
+	//int h = 64;
+	//int	w = 64;
 	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	img = floorcasting(map, img);
-	img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
+	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
+	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img);
 	//moov_camera(img);
 	mlx_key_hook(img.mlx_win, &change_map, &img);
