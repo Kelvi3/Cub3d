@@ -42,6 +42,21 @@ int change_map(int keycode, t_map *img)
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
+	if (keycode == 100)
+	{
+		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
+			img->posY += img->dirX * movespeed;
+		else if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
+			img->posX += img->dirX * movespeed;
+
+	} // a droite
+	if (keycode == 97)
+	{
+		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
+			img->posY -= img->dirX * movespeed;
+		else if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
+			img->posX -= img->dirX * movespeed;
+	} // a gauche
 	if (keycode == 65361)
 	{
 		oldDirX = img->dirX;
