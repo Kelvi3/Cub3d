@@ -1,15 +1,12 @@
-NO ./rscs/textures/wall/north.png
-SO ./rscs/textures/wall/south.png
-WE ./rscs/textures/wall/west.png
-EA ./rscs/textures/wall/east.png
+NO textures/wall.xpm 
+SO textures/wall.xpm 
+WE textures/wall.xpm 
+EA textures/wall.xpm
 
 F 55,100,0
 C 55,100,0
 
 1111111111 11111111
-10000000001 100E0001
-10000000001 11101111
-100000000001 11111
 100000000001
 1000001100011
 100001 1000001

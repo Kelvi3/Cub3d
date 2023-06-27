@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
 # include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
@@ -38,6 +39,7 @@ typedef struct	s_map
 	void	*mlx;
 	char	*addr;
 	void	*img;
+	void	*floor;
 	int		width;
 	int		height;
 	int		bits_per_pixel;
@@ -80,5 +82,6 @@ void	free_all(t_data *map);
 
 /* RAYCASTING */
 t_map	raycasting(t_data map, t_map img);
-
+t_map	floorcasting(t_data map, t_map img);
+void	my_mlx_pixel_put(t_map *data, int x, int y, int color);
 #endif

@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/19 16:41:41 by lulaens          ###   ########.fr        #
+#    Updated: 2023/06/21 13:20:36 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC = 	main.c \
 		parse/parse.c \
 		free_utils.c \
 		raycasting/raycasting.c \
+		raycasting/floorcasting.c \
 
 CC = gcc
 
@@ -38,9 +39,9 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C libft && echo "LIBFT COMPILED"
-	@make -C ./minilibx-linux && echo "MLX COMPILED"
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) | echo "OBJ COMPILED"
+	@make -C libft
+	@make -C minilibx-linux
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"

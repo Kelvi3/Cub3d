@@ -36,7 +36,17 @@ t_map raycasting(t_data map, t_map img)
 
     texWidth = 64;
     img.map = map;
-    color = 0x000000; // SUD
+    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	if (img.dirX == 1.0 && img.dirY == 0.0)
+        color = 0x808000; // SUD
+    if (img.dirX == 0.0 && img.dirY == 1.0)
+        color = 0xC0C0C0; // NORD
+    if (img.dirX == -1.0 && img.dirY == 0.0)
+        color = 0xFFFF00; // WEST
+    if (img.dirX == 0.0 && img.dirY == -1.0)
+        color = 0x00FFFF; // EST
+//    color = mlx_get_color_value(img.img, color);
+    //color = 0x000000; // SUD
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     x = 0;
     y = 0;
@@ -50,7 +60,7 @@ t_map raycasting(t_data map, t_map img)
         }
         x++;
     }
-    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
+   // mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
     w = 1280;
     h = 720;
     y = 0;
@@ -139,9 +149,17 @@ t_map raycasting(t_data map, t_map img)
         if (side == 1 && rayDirY < 0.0)
             texX = texWidth - texX - 1;
 
-        y = drawStart;
+		y = 0;
+        //y = drawStart;
+		while (y < drawStart)
+		{
+			int	color2 = 0xFF000;
+			my_mlx_pixel_put(&img, x, y, color2);
+			y++;
+		}
         while (y < drawEnd)
         {
+			//my_mlx_pixel_put(&img, x, y, color);
             if (img.dirX == 1.0 && img.dirY == 0.0)
                 color = 0x05ff00; // SUD
             if (img.dirX == 0.0 && img.dirY == 1.0)
@@ -149,14 +167,23 @@ t_map raycasting(t_data map, t_map img)
             if (img.dirX == -1.0 && img.dirY == 0.0)
                 color = 0x05ff00; // WEST
             if (img.dirX == 0.0 && img.dirY == -1.0)
-                color = 0x05ff00; // EST
-            color = 0x05ff00;
-            my_mlx_pixel_put(&img, x, y, color);
+                color = 0x00FFFF; // EST
+			//color = mlx_get_color_value(img.img, color);
+            color = 0x00FFFF;
+			my_mlx_pixel_put(&img, x, y, color);
             y++;
         }
+		while (y < 720)
+		{
+			int color1 = 0x000FF;
+			my_mlx_pixel_put(&img, x, y, color1);
+			y++;
+		}
+		// plafond
         x++;
     }
-    mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
+	mlx_put_image_to_window(img.mlx, img.mlx_win, img.floor, 0, 0);
+	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
     return (img);
 }
 
