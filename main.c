@@ -27,7 +27,7 @@ int change_map(int keycode, t_map *img)
 	double	movespeed;
 
 	rotSpeed = 0.2;
-	movespeed = 0.5;
+	movespeed = 0.3;
 	if (keycode == 119)
 	{
 		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
@@ -42,7 +42,7 @@ int change_map(int keycode, t_map *img)
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
-	if (keycode == 65363)
+	if (keycode == 65361)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
@@ -51,7 +51,7 @@ int change_map(int keycode, t_map *img)
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
 	} // tourne_camera droite
-	if (keycode == 65361)
+	if (keycode == 65363)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
@@ -80,6 +80,8 @@ t_map get_pos_player(t_data map, t_map img)
 	j = 0;
 	img.dirX = 0.0;
 	img.dirY = 0.0;
+	img.planeX = 0.0;
+	img.planeY = 0.0;
 	while (map.map[i])
 	{
 		j = 0;
@@ -93,22 +95,22 @@ t_map get_pos_player(t_data map, t_map img)
 				if (map.map[i][j] == 'S')
 				{
 					img.dirX = 1.0;
-					img.dirY = 0.0;
+					img.planeY = 0.66;
 				}
 				if (map.map[i][j] == 'N')
 				{
-					img.dirX = 0.5;
-					img.dirY = 1.0;
+					img.dirX = -1.0;
+					img.planeY = -0.66;
 				}
 				if (map.map[i][j] == 'W')
 				{
-					img.dirX = -1.0;
-					img.dirY = 0.0;
+					img.dirY = 1.0;
+					img.planeX = -0.66;
 				}
 				if (map.map[i][j] == 'E')
 				{
-					img.dirX = 0.0;
 					img.dirY = -1.0;
+					img.planeX = 0.66;
 				}
 			}
 			j++;
@@ -118,7 +120,7 @@ t_map get_pos_player(t_data map, t_map img)
 	if (img.dirX == 1.0 && img.dirY == 0.0)
 		printf("regarde au SUD posX = %f posY = %f\n", img.posX, img.posY);
 	if (img.dirX == 0.0 && img.dirY == 1.0)
-		printf("regarde au NORD posX = %f posY = %f\n", img.posX, img.posY);
+		printf("regarde au NORD posX = %f posY = %f dirX = %f dirY = %f\n", img.posX, img.posY, img.dirX, img.dirY);
 	if (img.dirX == -1.0 && img.dirY == 0.0)
 		printf("regarde a l WEST posX = %f posY = %f\n", img.posX, img.posY);
 	if (img.dirX == 0.0 && img.dirY == -1.0)
@@ -150,8 +152,6 @@ int main(int argc, char **argv)
 	if (!img.mlx)
 		return (2);
 	img = get_pos_player(map, img);
-	img.planeX = 0.0;
-	img.planeY = 0.66;
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
 	img.img = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img);
