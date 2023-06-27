@@ -43,7 +43,7 @@ int change_map(int keycode, t_map *img)
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
-	if (keycode == 65363)
+	if (keycode == 97)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
@@ -52,7 +52,7 @@ int change_map(int keycode, t_map *img)
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
 	} // tourne_camera droite
-	if (keycode == 65361)
+	if (keycode == 100)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
@@ -98,7 +98,7 @@ t_map get_pos_player(t_data map, t_map img)
 				}
 				if (map.map[i][j] == 'N')
 				{
-					img.dirX = 0.5;
+					img.dirX = 0.0;
 					img.dirY = 1.0;
 				}
 				if (map.map[i][j] == 'W')
@@ -156,15 +156,14 @@ int main(int argc, char **argv)
 	img.planeX = 0.0;
 	img.planeY = 0.66;
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
+	int h = 64;
+	int	w = 64;
 	img.floor = mlx_new_image(img.mlx, 1280, 720);
-	//int h = 64;
-	//int	w = 64;
-	img.floor = mlx_new_image(img.mlx, 1280, 720);
-	img = floorcasting(map, img);
+	img.floor = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
+	img.img = mlx_new_image(img.mlx, 1280, 720);
+//	img = floorcasting(map, img);
 	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
-	img.floor = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img);
-	//moov_camera(img);
 	mlx_key_hook(img.mlx_win, &change_map, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
