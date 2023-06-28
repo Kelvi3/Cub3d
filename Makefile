@@ -26,6 +26,7 @@ SRC = 	main.c \
 		free_utils.c \
 		raycasting/raycasting.c \
 		raycasting/floorcasting.c \
+		moov_player.c \
 
 CC = gcc
 

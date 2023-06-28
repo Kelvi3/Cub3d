@@ -20,76 +20,6 @@ void print_all(t_data map)
 
 /*	./cub3D ./map	= error */
 
-int change_map(int keycode, t_map *img)
-{
-	double oldDirX;
-	double oldPlaneX;
-	double rotSpeed;
-	double	movespeed;
-
-	rotSpeed = 0.2;
-	movespeed = 0.3;
-	if (keycode == 119)
-	{
-		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX += img->dirX * movespeed;
-		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
-			img->posY += img->dirY * movespeed;
-	} // avant
-	if (keycode == 115)
-	{
-		if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX -= img->dirX * movespeed;
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
-			img->posY -= img->dirY * movespeed;
-	} // recule
-<<<<<<< HEAD
-	if (keycode == 97)
-=======
-	if (keycode == 100)
-	{
-		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
-			img->posY += img->dirX * movespeed;
-		else if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX += img->dirX * movespeed;
-
-	} // a droite
-	if (keycode == 97)
-	{
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
-			img->posY -= img->dirX * movespeed;
-		else if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX -= img->dirX * movespeed;
-	} // a gauche
-	if (keycode == 65361)
-	{
-		oldDirX = img->dirX;
-		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
-		img->dirY = oldDirX * sin(-rotSpeed) + img->dirY * cos(-rotSpeed);
-		oldPlaneX = img->planeX;
-		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
-		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
-	} // tourne_camera droite
-	if (keycode == 65363)
-	{
-		oldDirX = img->dirX;
-		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
-		img->dirY = oldDirX * sin(rotSpeed) + img->dirY * cos(rotSpeed);
-		oldPlaneX = img->planeX;
-		img->planeX = img->planeX * cos(rotSpeed) - img->planeY * sin(rotSpeed);
-		img->planeY = oldPlaneX * sin(rotSpeed) + img->planeY * cos(rotSpeed);
-	} // tourne camera gauche
-	if (keycode == 65307) // ESC
-	{
-		mlx_loop_end(img->mlx);
-		mlx_destroy_window(img->mlx, img->mlx_win);
-		mlx_destroy_display(img->mlx);
-		return (0);
-	}
-	*img = raycasting(img->map, *img);
-	return (0);
-}
-
 t_map get_pos_player(t_data map, t_map img)
 {
 	int i;
@@ -182,7 +112,7 @@ int main(int argc, char **argv)
 //	img = floorcasting(map, img);
 	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
 	img = raycasting(map, img);
-	mlx_key_hook(img.mlx_win, &change_map, &img);
+	mlx_key_hook(img.mlx_win, &moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);
