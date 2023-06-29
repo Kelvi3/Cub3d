@@ -43,9 +43,6 @@ int change_map(int keycode, t_map *img)
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
-<<<<<<< HEAD
-	if (keycode == 97)
-=======
 	if (keycode == 100)
 	{
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
@@ -174,13 +171,10 @@ int main(int argc, char **argv)
 	img.map = map;
 	img = get_pos_player(map, img);
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
-	int h = 64;
-	int	w = 64;
-	img.floor = mlx_new_image(img.mlx, 1280, 720);
-	img.floor = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
-	img.img = mlx_new_image(img.mlx, 1280, 720);
-//	img = floorcasting(map, img);
+//	int h = 64;
+//	int	w = 64;
 	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
+//	img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &w, &h);
 	img = raycasting(map, img);
 	mlx_key_hook(img.mlx_win, &change_map, &img);
 	mlx_loop(img.mlx);
