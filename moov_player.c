@@ -20,19 +20,19 @@ static void	moov_up_and_down(int keycode, t_map *img, double movespeed)
 
 static void	moov_left_and_right(int keycode, t_map *img, double movespeed)
 {
-	if (keycode == 100)
-	{
-		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY)] != '1')
-			img->posY += img->dirX * movespeed;
-		if (img->map.map[(int)(img->posX + img->dirX)][(int)img->posY] != '1')
-			img->posX += img->dirX * movespeed;
-	}
 	if (keycode == 97)
 	{
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY)] != '1')
-			img->posY -= img->dirX * movespeed;
-		if (img->map.map[(int)(img->posX - img->dirX)][(int)img->posY] != '1')
-			img->posX -= img->dirX * movespeed;
+		if (img->map.map[(int)(img->posX + img->dirY)][(int)(img->posY)] != '1')
+			img->posX += img->dirY * movespeed;
+		if (img->map.map[(int)img->posX][(int)(img->posY + (-img->dirX))] != '1')
+			img->posY += (-img->dirX) * movespeed;
+	}
+	if (keycode == 100)
+	{
+		if (img->map.map[(int)(img->posX + (-img->dirY))][(int)img->posY] != '1')
+			img->posX += (-img->dirY) * movespeed;
+		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirX)] != '1')
+			img->posY += img->dirX * movespeed;
 	}
 }
 

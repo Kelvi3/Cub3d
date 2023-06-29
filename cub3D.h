@@ -84,4 +84,9 @@ void	free_all(t_data *map);
 t_map	raycasting(t_data map, t_map img);
 t_map	floorcasting(t_data map, t_map img);
 void	my_mlx_pixel_put(t_map *data, int x, int y, int color);
+
+/* moov_player */
+
+int	moov_player(int keycode, t_map *img);
+
 #endif
