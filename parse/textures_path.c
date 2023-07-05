@@ -6,23 +6,29 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:34:28 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/23 14:10:42 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/05 08:37:41 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 #include <fcntl.h>
+#include <unistd.h>
 
 static int	open_path(t_data *map)
 {
-	printf("%s\n", map->ea);
-	if (open(map->ea, O_RDONLY) == -1)
+
+	//fd = open(map->we, O_RDONLY);
+	//printf("map->ea = %s\n", map->ea);
+	//printf("fd = %d\n", fd);
+	if (access(map->ea, F_OK) == -1)
 		return (1);
-	if (open(map->so, O_RDONLY) == -1)
+	if (access(map->ea, F_OK) == -1)
 		return (1);
-	if (open(map->we, O_RDONLY) == -1)
+	if (access(map->ea, F_OK) == -1)
 		return (1);
-	if (open(map->no, O_RDONLY) == -1)
+	if (access(map->ea, F_OK) == -1)
+		return (1);
+	if (access(map->ea, F_OK) == -1)
 		return (1);
 	return (0);
 }

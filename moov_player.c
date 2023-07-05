@@ -63,7 +63,7 @@ static void	turn_camera(int keycode, t_map *img)
 	}
 }
 
-int	moov_player(int keycode, t_map *img)
+int	moov_player(int keycode, t_map *img, t_cast cast)
 {
 	double	movespeed;
 
@@ -78,6 +78,6 @@ int	moov_player(int keycode, t_map *img)
 		mlx_destroy_display(img->mlx);
 		return (0);
 	}
-	*img = raycasting(img->map, *img);
+	*img = raycasting(img->map, *img, cast);
 	return (0);
 }

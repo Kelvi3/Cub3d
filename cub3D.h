@@ -54,6 +54,34 @@ typedef struct	s_map
 	t_data	map;
 }				t_map;
 
+typedef struct	s_cast
+{
+	int color;
+	int x;
+	int y;
+	int w;
+	int h;
+	int texWidth;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit; // was there a wall hit?
+	int side;
+    int lineHeight;
+    int drawStart;
+    int drawEnd;
+    double wallX;
+    int texX;
+}			t_cast;
 
 		/*	PARSE	*/
 char	*get_next_line(int fd);
@@ -82,12 +110,15 @@ void	free_tab(char **tab);
 void	free_all(t_data *map);
 
 /* RAYCASTING */
-t_map	raycasting(t_data map, t_map img);
-t_map	floorcasting(t_data map, t_map img);
+t_map	raycasting(t_data map, t_map img, t_cast cast);
 void	my_mlx_pixel_put(t_map *data, int x, int y, int color);
+
+void	calculate_step_and_initial_sidedist(t_cast *cast, t_map img);
+void	calculate_pos_and_dir(t_cast *cast, t_map img);
+void	calculate_lowest_and_highest_pixel(t_cast *cast);
 
 /* moov_player */
 
-int	moov_player(int keycode, t_map *img);
+int	moov_player(int keycode, t_map *img, t_cast cast);
 
 #endif

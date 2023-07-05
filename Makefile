@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/06/21 13:20:36 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/05 09:18:50 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC = 	main.c \
 		parse/parse.c \
 		free_utils.c \
 		raycasting/raycasting.c \
-		raycasting/floorcasting.c \
+		raycasting/calculate_raycasting.c \
 		moov_player.c \
 
 CC = gcc

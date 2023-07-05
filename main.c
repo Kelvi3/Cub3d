@@ -20,7 +20,7 @@ void print_all(t_data map)
 
 /*	./cub3D ./map	= error */
 
-int change_map(int keycode, t_map *img)
+int change_map(int keycode, t_map *img, t_cast cast)
 {
 	double oldDirX;
 	double oldPlaneX;
@@ -83,7 +83,7 @@ int change_map(int keycode, t_map *img)
 		mlx_destroy_display(img->mlx);
 		return (0);
 	}
-	*img = raycasting(img->map, *img);
+	*img = raycasting(img->map, *img, cast);
 	return (0);
 }
 
@@ -146,8 +146,9 @@ t_map get_pos_player(t_data map, t_map img)
 
 int main(int argc, char **argv)
 {
-	t_data map;
-	t_map img;
+	t_data	map;
+	t_map	img;
+	t_cast	cast;
 
 	if (argc != 2)
 	{
@@ -175,7 +176,7 @@ int main(int argc, char **argv)
 //	int	w = 64;
 	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
 //	img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &w, &h);
-	img = raycasting(map, img);
+	img = raycasting(map, img, cast);
 	mlx_key_hook(img.mlx_win, &moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
