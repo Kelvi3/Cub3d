@@ -176,7 +176,7 @@ int main(int argc, char **argv)
 	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
 //	img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &w, &h);
 	img = raycasting(map, img);
-	mlx_key_hook(img.mlx_win, &change_map, &img);
+	mlx_key_hook(img.mlx_win, &moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);
