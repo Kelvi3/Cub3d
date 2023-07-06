@@ -3,16 +3,16 @@
 #define BPP sizeof(int32_t)
 void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 {
-	//int	ceiling;
-	//int	floor;
+	int	ceiling;
+	int	floor;
 	(void)map;
 	cast.y = 0;
-	/*while (cast.y < cast.drawStart)
+	while (cast.y < cast.drawStart)
 	{
 		ceiling = (map.colorc[0] << 16) | (map.colorc[1] << 8) | map.colorc[2];
 		mlx_put_pixel(img.image, cast.x, cast.y, ceiling);
 		cast.y++;
-	}*/
+	}
 	
 	while (cast.y < cast.drawEnd)
 	{
@@ -29,12 +29,12 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 		mlx_put_pixel(img.image, cast.x, cast.y, cast.color);
 		cast.y++;
 	}
-	/*while (cast.y < HEIGHT)
+	while (cast.y < HEIGHT)
 	{
 		floor = (map.colorf[0] << 16) | (map.colorf[1] << 8) | map.colorf[2];
 		mlx_put_pixel(img.image, cast.x, cast.y, floor);
 		cast.y++;
-	}*/
+	}
 }
 
 void	dda(t_cast *cast, t_map img)
