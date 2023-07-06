@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/07/06 15:16:30 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/06 15:59:46 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft
-	@make -C MLX42
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a MLX42/build/libmlx42.a --Iinclude -ldl -lglfw -pthread -lm o $(NAME)
+	#@make -C MLX42
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a MLX42/build/libmlx42.a -I include -ldl -lglfw -lm -o $(NAME)
 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"

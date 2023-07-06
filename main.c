@@ -1,3 +1,4 @@
+#include "MLX42/include/MLX42/MLX42.h"
 #include "cub3D.h"
 
 void print_all(t_data map)
@@ -19,30 +20,32 @@ void print_all(t_data map)
 
 /*	./cub3D ./map	= error */
 
-int change_map(int keycode, t_map *img, t_cast cast)
+void	change_map(mlx_key_data_t keydata, void *param)
 {
 	double oldDirX;
 	double oldPlaneX;
 	double rotSpeed;
 	double	movespeed;
+	t_map	*img;
 
+	img = (t_map *)param;
 	rotSpeed = 0.2;
 	movespeed = 0.3;
-	if (keycode == 119)
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
 			img->posX += img->dirX * movespeed;
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
 			img->posY += img->dirY * movespeed;
 	} // avant
-	if (keycode == 115)
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
 			img->posX -= img->dirX * movespeed;
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirY * movespeed;
 	} // recule
-	if (keycode == 100)
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
 			img->posY += img->dirX * movespeed;
@@ -50,14 +53,14 @@ int change_map(int keycode, t_map *img, t_cast cast)
 			img->posX += img->dirX * movespeed;
 
 	} // a droite
-	if (keycode == 97)
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
 			img->posY -= img->dirX * movespeed;
 		else if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
 			img->posX -= img->dirX * movespeed;
 	} // a gauche
-	if (keycode == 65361)
+	if (mlx_is_key_down(param, MLX_KEY_RIGHT) && keydata.action == MLX_PRESS)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
@@ -66,7 +69,7 @@ int change_map(int keycode, t_map *img, t_cast cast)
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
 	} // tourne_camera droite
-	if (keycode == 65363)
+	if (mlx_is_key_down(param, MLX_KEY_LEFT) && keydata.action == MLX_PRESS)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
@@ -75,15 +78,12 @@ int change_map(int keycode, t_map *img, t_cast cast)
 		img->planeX = img->planeX * cos(rotSpeed) - img->planeY * sin(rotSpeed);
 		img->planeY = oldPlaneX * sin(rotSpeed) + img->planeY * cos(rotSpeed);
 	} // tourne camera gauche
-	if (keycode == 65307) // ESC
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS) // ESC
 	{
-		mlx_loop_end(img->mlx);
-		mlx_destroy_window(img->mlx, img->mlx_win);
-		mlx_destroy_display(img->mlx);
-		return (0);
+		mlx_terminate(img->mlx);
+		return ;
 	}
-	*img = raycasting(img->map, *img, cast);
-	return (0);
+	*img = raycasting(img->map, *img, *img->cast);
 }
 
 t_map get_pos_player(t_data map, t_map img)
@@ -164,15 +164,14 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	print_all(map);
-	img.mlx = mlx_init();
+	img.mlx = mlx_init(WIDTH, HEIGHT, "CUB3D", true);
 	if (!img.mlx)
 		return (2);
 	// TODO : create function vecteur for get dirX dirY
 	img.map = map;
 	img = get_pos_player(map, img);
-	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
 	img = raycasting(map, img, cast);
-	mlx_key_hook(img.mlx_win, &moov_player, &img);
+	mlx_key_hook(img.mlx, &change_map, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);

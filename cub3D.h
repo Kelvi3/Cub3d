@@ -19,6 +19,7 @@
 # define HEIGHT 720
 
 typedef struct s_data t_data;
+typedef struct s_cast t_cast;
 
 typedef struct s_data
 {
@@ -37,8 +38,10 @@ typedef struct s_data
 
 typedef struct	s_map
 {
+	mlx_t	*mlx;
+	mlx_image_t *image;
+	mlx_texture_t *texture;
 	void	*mlx_win;
-	void	*mlx;
 	char	*addr;
 	void	*img;
 	void	*floor;
@@ -54,6 +57,7 @@ int		endian;
 	double	planeX;
 	double	planeY;
 	t_data	map;
+	t_cast	*cast;
 }				t_map;
 
 typedef struct	s_cast

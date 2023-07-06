@@ -1,5 +1,5 @@
 #include	"cub3D.h"
-
+/*
 static void	moov_up_and_down(int keycode, t_map *img, double movespeed)
 {
 	if (keycode == 119)
@@ -80,4 +80,4 @@ int	moov_player(int keycode, t_map *img, t_cast cast)
 	}
 	*img = raycasting(img->map, *img, cast);
 	return (0);
-}
+}*/
