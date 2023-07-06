@@ -5,9 +5,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "minilibx-linux/mlx.h"
+# include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <sys/types.h>
@@ -15,6 +14,9 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <string.h>
+
+# define WIDTH 1280
+# define HEIGHT 720
 
 typedef struct s_data t_data;
 
@@ -44,7 +46,7 @@ typedef struct	s_map
 	int		height;
 	int		bits_per_pixel;
 	int		line_length;
-	int		endian;
+int		endian;
 	double	posX;
 	double	posY;
 	double	dirX;
@@ -59,9 +61,12 @@ typedef struct	s_cast
 	int color;
 	int x;
 	int y;
-	int w;
-	int h;
 	int texWidth;
+	int texHeight;
+	int	texNum;
+	int	texY;
+	double step;
+	double texPos;
 	double cameraX;
 	double rayDirX;
 	double rayDirY;

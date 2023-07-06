@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/07/05 09:18:50 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/06 15:16:30 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft
-	@make -C minilibx-linux
-	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a minilibx-linux/libmlx.a -Lminilibx-Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	@make -C MLX42
+	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a MLX42/build/libmlx42.a --Iinclude -ldl -lglfw -pthread -lm o $(NAME)
 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"
 	@make clean -C libft -s && echo "LIBFT CLEANED"
-	@make clean -C minilibx-linux -s && echo "MINILIBX-LINUX CLEANED"
+	#@make clean -C minilibx-linux -s && echo "MINILIBX-LINUX CLEANED"
 
 fclean: clean
 			@rm -f $(NAME) && echo "CLEAN ALL"

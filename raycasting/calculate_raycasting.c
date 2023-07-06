@@ -2,7 +2,7 @@
 
 void	calculate_pos_and_dir(t_cast *cast, t_map img)
 {
-	cast->cameraX = 2.0 * (double)cast->x / (double)cast->w - 1.0;
+	cast->cameraX = 2.0 * (double)cast->x / (double)WIDTH - 1.0;
 	cast->rayDirX = img.dirX + img.planeX * cast->cameraX;
 	cast->rayDirY = img.dirY + img.planeY * cast->cameraX;
 	cast->mapX = (int)img.posX;
@@ -54,10 +54,10 @@ void	calculate_step_and_initial_sidedist(t_cast *cast, t_map img)
 
 void	calculate_lowest_and_highest_pixel(t_cast *cast)
 {
-	cast->drawStart = -cast->lineHeight / 2 + cast->h / 2;
+	cast->drawStart = -cast->lineHeight / 2 + HEIGHT / 2;
 	if (cast->drawStart < 0)
 		cast->drawStart = 0;
-	cast->drawEnd = cast->lineHeight / 2 + cast->h / 2;
-	if (cast->drawEnd >= cast->h)
-		cast->drawEnd = cast->h - 1;
+	cast->drawEnd = cast->lineHeight / 2 + HEIGHT / 2;
+	if (cast->drawEnd >= HEIGHT)
+		cast->drawEnd = HEIGHT - 1;
 }

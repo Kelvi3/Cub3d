@@ -1,5 +1,4 @@
 #include "cub3D.h"
-#include "minilibx-linux/mlx.h"
 
 void print_all(t_data map)
 {
@@ -172,10 +171,6 @@ int main(int argc, char **argv)
 	img.map = map;
 	img = get_pos_player(map, img);
 	img.mlx_win = mlx_new_window(img.mlx, 1280, 720, "CUB3D");
-//	int h = 64;
-//	int	w = 64;
-	//img.img = mlx_xpm_file_to_image(img.mlx, "./textures/wall.xpm", &w, &h);
-//	img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &w, &h);
 	img = raycasting(map, img, cast);
 	mlx_key_hook(img.mlx_win, &moov_player, &img);
 	mlx_loop(img.mlx);
