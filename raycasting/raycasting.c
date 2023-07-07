@@ -13,10 +13,9 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 		mlx_put_pixel(img.image, cast.x, cast.y, ceiling);
 		cast.y++;
 	}
-	printf("drawstart = %d\n", cast.drawStart);	
 	while (cast.y < cast.drawEnd)
 	{
-		if (img.dirX == 1.0 && img.dirY == 0.0)
+		/*if (img.dirX == 1.0 && img.dirY == 0.0)
 			cast.color = 0x3272A3; // SUD
 		if (img.dirX == 0.0 && img.dirY == 1.0)
 			cast.color = 0x3200A3; // NORD
@@ -24,7 +23,7 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 			cast.color = 0xFF323A; // WEST
 		if (img.dirX == 0.0 && img.dirY == -1.0)
 			cast.color = 0xFF0004; // EST
-			
+		*/	
 		//cast.color = 0x3272A3; // SUD
 		mlx_put_pixel(img.image, cast.x, cast.y, cast.color);
 		cast.y++;
@@ -77,6 +76,14 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 		else
 			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
 		cast->wallX -= cast->wallX;
+		if (cast->side == 0 && cast->rayDirX > 0.0)
+			cast->color = 0xFF323A;
+		else if (cast->side == 0 && cast->rayDirX <= 0.0)
+			cast->color = 0x3200A3;
+		else
+			cast->color = 0xFF0004;
+		// if (cast->side == 1 && cast->rayDirX >= 0.0)
+		// if (cast->side == 1 && cast->rayDirX < 0.0)
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;
@@ -94,30 +101,6 @@ t_map raycasting(t_data map, t_map img, t_cast cast)
 	cast.x = 0;
 	cast.y = 0;
 	img.map = map;
-	//img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &he, &we);
-
-	img.texture = mlx_load_png("textures/bark.png");
-	img.image = mlx_texture_to_image(img.mlx, img.texture);
-	img.image = mlx_new_image(img.mlx, 1280, 720);
-	//image = mlx_new_image(img.mlx, 1280, 720);
-	/*if (img.dirX <= 1.0 && img.dirY >= 0.0)
-		cast.color = 0x3272A3; // SUD
-	if (img.dirX >= 0.0 && img.dirY <= 1.0)
-		cast.color = 0x3200A3; // NORD
-	if (img.dirX >= -1.0 && img.dirY <= 0.0)
-		cast.color = 0x3200A3; // WEST
-	if (img.dirX <= 0.0 && img.dirY >= -1.0)
-		cast.color = 0x140004; // EST*/
-	/*while (cast.x < 1280)
-	{
-		cast.y = 0;
-		while (cast.y < 720)
-		{
-			((int *)img.addr)[cast.y * 1280 + cast.x] = cast.color;
-			cast.y++;
-		}
-		cast.x++;
-	}*/
 	cast.y = 0;
 	cast.x = 0;
 	raycasting_loop(img, &cast, map);

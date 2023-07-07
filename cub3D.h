@@ -36,6 +36,38 @@ typedef struct s_data
 
 }				t_data;
 
+typedef struct s_cast
+{
+	int color;
+	int x;
+	int y;
+	int texWidth;
+	int texHeight;
+	int texNum;
+	int texY;
+	double step;
+	double texPos;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int mapX;
+	int mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+	int stepY;
+	int hit; // was there a wall hit?
+	int side;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+	double wallX;
+	int texX;
+} t_cast;
+
 typedef struct	s_map
 {
 	mlx_t	*mlx;
@@ -57,40 +89,8 @@ int		endian;
 	double	planeX;
 	double	planeY;
 	t_data	map;
-	t_cast	*cast;
+	t_cast	cast;
 }				t_map;
-
-typedef struct	s_cast
-{
-	int color;
-	int x;
-	int y;
-	int texWidth;
-	int texHeight;
-	int	texNum;
-	int	texY;
-	double step;
-	double texPos;
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
-	int stepX;
-	int stepY;
-	int hit; // was there a wall hit?
-	int side;
-    int lineHeight;
-    int drawStart;
-    int drawEnd;
-    double wallX;
-    int texX;
-}			t_cast;
 
 		/*	PARSE	*/
 char	*get_next_line(int fd);
@@ -128,6 +128,6 @@ void	calculate_lowest_and_highest_pixel(t_cast *cast);
 
 /* moov_player */
 
-void	moov_player(mlx_key_data_t keydata, void *param);
+void	moov_player(void *param);
 void	moov_camera(mlx_key_data_t keydata, void *param);
 #endif

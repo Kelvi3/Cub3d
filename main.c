@@ -83,7 +83,7 @@ void	change_map(mlx_key_data_t keydata, void *param)
 		mlx_terminate(img->mlx);
 		return ;
 	}
-	*img = raycasting(img->map, *img, *img->cast);
+	*img = raycasting(img->map, *img, img->cast);
 }
 
 t_map get_pos_player(t_data map, t_map img)
@@ -147,7 +147,6 @@ int main(int argc, char **argv)
 {
 	t_data	map;
 	t_map	img;
-	t_cast	cast;
 
 	if (argc != 2)
 	{
@@ -170,9 +169,12 @@ int main(int argc, char **argv)
 	// TODO : create function vecteur for get dirX dirY
 	img.map = map;
 	img = get_pos_player(map, img);
-	img = raycasting(map, img, cast);
-	mlx_key_hook(img.mlx, &moov_camera, &img);
-	mlx_key_hook(img.mlx, &moov_player, &img);
+	img.texture = mlx_load_png("textures/bark.png");
+	img.image = mlx_texture_to_image(img.mlx, img.texture);
+	img.image = mlx_new_image(img.mlx, 1280, 720);
+	img = raycasting(map, img, img.cast);
+	//mlx_key_hook(img.mlx, &moov_camera, &img);
+	mlx_loop_hook(img.mlx, moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);
