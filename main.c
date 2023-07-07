@@ -18,74 +18,6 @@ void print_all(t_data map)
 	}
 }
 
-/*	./cub3D ./map	= error */
-
-void	change_map(mlx_key_data_t keydata, void *param)
-{
-	double oldDirX;
-	double oldPlaneX;
-	double rotSpeed;
-	double	movespeed;
-	t_map	*img;
-
-	img = (t_map *)param;
-	rotSpeed = 0.2;
-	movespeed = 0.3;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-	{
-		if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX += img->dirX * movespeed;
-		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
-			img->posY += img->dirY * movespeed;
-	} // avant
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-	{
-		if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX -= img->dirX * movespeed;
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
-			img->posY -= img->dirY * movespeed;
-	} // recule
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-	{
-		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY * 1.0)] != '1')
-			img->posY += img->dirX * movespeed;
-		else if (img->map.map[(int)(img->posX + img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX += img->dirX * movespeed;
-
-	} // a droite
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	{
-		if (img->map.map[(int)img->posX][(int)(img->posY - img->dirY * 1.0)] != '1')
-			img->posY -= img->dirX * movespeed;
-		else if (img->map.map[(int)(img->posX - img->dirX * 1.0)][(int)img->posY] != '1')
-			img->posX -= img->dirX * movespeed;
-	} // a gauche
-	if (mlx_is_key_down(param, MLX_KEY_RIGHT) && keydata.action == MLX_PRESS)
-	{
-		oldDirX = img->dirX;
-		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
-		img->dirY = oldDirX * sin(-rotSpeed) + img->dirY * cos(-rotSpeed);
-		oldPlaneX = img->planeX;
-		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
-		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
-	} // tourne_camera droite
-	if (mlx_is_key_down(param, MLX_KEY_LEFT) && keydata.action == MLX_PRESS)
-	{
-		oldDirX = img->dirX;
-		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
-		img->dirY = oldDirX * sin(rotSpeed) + img->dirY * cos(rotSpeed);
-		oldPlaneX = img->planeX;
-		img->planeX = img->planeX * cos(rotSpeed) - img->planeY * sin(rotSpeed);
-		img->planeY = oldPlaneX * sin(rotSpeed) + img->planeY * cos(rotSpeed);
-	} // tourne camera gauche
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS) // ESC
-	{
-		mlx_terminate(img->mlx);
-		return ;
-	}
-	*img = raycasting(img->map, *img, img->cast);
-}
-
 t_map get_pos_player(t_data map, t_map img)
 {
 	int i;
@@ -170,10 +102,8 @@ int main(int argc, char **argv)
 	img.map = map;
 	img = get_pos_player(map, img);
 	img.texture = mlx_load_png("textures/bark.png");
-	img.image = mlx_texture_to_image(img.mlx, img.texture);
 	img.image = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img, img.cast);
-	//mlx_key_hook(img.mlx, &moov_camera, &img);
 	mlx_loop_hook(img.mlx, moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);

@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/07/07 12:33:26 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/07 15:05:57 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft
-	#@make -C MLX42
+	#@cmake -B build
+	#@cmake --build build -j4
 	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a MLX42/build/libmlx42.a -I include -ldl -pthread -lglfw -lm -o $(NAME)
 
 clean:

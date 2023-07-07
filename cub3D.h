@@ -72,6 +72,7 @@ typedef struct	s_map
 {
 	mlx_t	*mlx;
 	mlx_image_t *image;
+	mlx_image_t *face;
 	mlx_texture_t *texture;
 	void	*mlx_win;
 	char	*addr;
