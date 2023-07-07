@@ -128,6 +128,6 @@ void	calculate_lowest_and_highest_pixel(t_cast *cast);
 
 /* moov_player */
 
-int	moov_player(int keycode, t_map *img, t_cast cast);
-
+void	moov_player(mlx_key_data_t keydata, void *param);
+void	moov_camera(mlx_key_data_t keydata, void *param);
 #endif

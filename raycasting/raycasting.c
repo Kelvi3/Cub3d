@@ -13,7 +13,7 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 		mlx_put_pixel(img.image, cast.x, cast.y, ceiling);
 		cast.y++;
 	}
-	
+	printf("drawstart = %d\n", cast.drawStart);	
 	while (cast.y < cast.drawEnd)
 	{
 		if (img.dirX == 1.0 && img.dirY == 0.0)
@@ -25,7 +25,7 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 		if (img.dirX == 0.0 && img.dirY == -1.0)
 			cast.color = 0xFF0004; // EST
 			
-		cast.color = 0xFF0004; // EST
+		//cast.color = 0x3272A3; // SUD
 		mlx_put_pixel(img.image, cast.x, cast.y, cast.color);
 		cast.y++;
 	}
@@ -96,8 +96,8 @@ t_map raycasting(t_data map, t_map img, t_cast cast)
 	img.map = map;
 	//img.img = mlx_xpm_file_to_image(img.mlx, "textures/wall.xpm", &he, &we);
 
-	//img.texture = mlx_load_png("textures/bark.png");
-	//img.image = mlx_texture_to_image(img.mlx, img.texture);
+	img.texture = mlx_load_png("textures/bark.png");
+	img.image = mlx_texture_to_image(img.mlx, img.texture);
 	img.image = mlx_new_image(img.mlx, 1280, 720);
 	//image = mlx_new_image(img.mlx, 1280, 720);
 	/*if (img.dirX <= 1.0 && img.dirY >= 0.0)
@@ -122,7 +122,6 @@ t_map raycasting(t_data map, t_map img, t_cast cast)
 	cast.x = 0;
 	raycasting_loop(img, &cast, map);
 	mlx_image_to_window(img.mlx, img.image, 0, 0);
-	//mlx_put_image_to_window(img.mlx, img.mlx_win, image, 0, 0);
 	return (img);
 }
 

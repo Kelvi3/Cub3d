@@ -1,15 +1,16 @@
+#include "MLX42/include/MLX42/MLX42.h"
 #include	"cub3D.h"
-/*
-static void	moov_up_and_down(int keycode, t_map *img, double movespeed)
+
+static void	moov_up_and_down(mlx_key_data_t keydata, t_map *img, double movespeed)
 {
-	if (keycode == 119)
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX + img->dirX)][(int)img->posY] != '1')
 			img->posX += img->dirX * movespeed;
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirY)] != '1')
 			img->posY += img->dirY * movespeed;
 	}
-	if (keycode == 115)
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX - img->dirX)][(int)img->posY] != '1')
 			img->posX -= img->dirX * movespeed;
@@ -18,16 +19,16 @@ static void	moov_up_and_down(int keycode, t_map *img, double movespeed)
 	}
 }
 
-static void	moov_left_and_right(int keycode, t_map *img, double movespeed)
+static void	moov_left_and_right(mlx_key_data_t keydata, t_map *img, double movespeed)
 {
-	if (keycode == 97)
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX + img->dirY)][(int)(img->posY)] != '1')
 			img->posX += img->dirY * movespeed;
 		if (img->map.map[(int)img->posX][(int)(img->posY + (-img->dirX))] != '1')
 			img->posY += (-img->dirX) * movespeed;
 	}
-	if (keycode == 100)
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
 	{
 		if (img->map.map[(int)(img->posX + (-img->dirY))][(int)img->posY] != '1')
 			img->posX += (-img->dirY) * movespeed;
@@ -36,14 +37,14 @@ static void	moov_left_and_right(int keycode, t_map *img, double movespeed)
 	}
 }
 
-static void	turn_camera(int keycode, t_map *img)
+static void	turn_camera(mlx_key_data_t keydata, t_map *img, void *param)
 {
 	double	oldDirX;
 	double	oldPlaneX;
 	double	rotSpeed;
 
 	rotSpeed = 0.2;
-	if (keycode == 65361)
+	if (mlx_is_key_down(param, MLX_KEY_RIGHT) && keydata.action == MLX_PRESS)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
@@ -52,7 +53,7 @@ static void	turn_camera(int keycode, t_map *img)
 		img->planeX = img->planeX * cos(-rotSpeed) - img->planeY * sin(-rotSpeed);
 		img->planeY = oldPlaneX * sin(-rotSpeed) + img->planeY * cos(-rotSpeed);
 	}
-	if (keycode == 65363)
+	if (mlx_is_key_down(param, MLX_KEY_LEFT) && keydata.action == MLX_PRESS)
 	{
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(rotSpeed) - img->dirY * sin(rotSpeed);
@@ -63,21 +64,34 @@ static void	turn_camera(int keycode, t_map *img)
 	}
 }
 
-int	moov_player(int keycode, t_map *img, t_cast cast)
+void	moov_player(mlx_key_data_t keydata, void *param)
 {
 	double	movespeed;
+	t_map	*img;
+	t_cast	cast;
 
+	img = (t_map *)param;
 	movespeed = 0.3;
-	moov_up_and_down(keycode, img, movespeed);
-	moov_left_and_right(keycode, img, movespeed);
-	turn_camera(keycode, img);
-	if (keycode == 65307)
+	moov_up_and_down(keydata, img, movespeed);
+	moov_left_and_right(keydata, img, movespeed);
+	turn_camera(keydata, img, param);
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		mlx_loop_end(img->mlx);
-		mlx_destroy_window(img->mlx, img->mlx_win);
-		mlx_destroy_display(img->mlx);
-		return (0);
+		mlx_terminate(img->mlx);
+		return ;
 	}
 	*img = raycasting(img->map, *img, cast);
-	return (0);
-}*/
+}
+
+void	moov_camera(mlx_key_data_t keydata, void *param)
+{
+	t_map	*img;
+
+	img = (t_map *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		mlx_terminate(img->mlx);
+		return ;
+	}
+//	*img = raycasting(img->map, *img, *img->cast);
+}

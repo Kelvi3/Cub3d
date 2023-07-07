@@ -171,7 +171,8 @@ int main(int argc, char **argv)
 	img.map = map;
 	img = get_pos_player(map, img);
 	img = raycasting(map, img, cast);
-	mlx_key_hook(img.mlx, &change_map, &img);
+	mlx_key_hook(img.mlx, &moov_camera, &img);
+	mlx_key_hook(img.mlx, &moov_player, &img);
 	mlx_loop(img.mlx);
 	free_all(&map);
 	return (0);
