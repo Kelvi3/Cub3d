@@ -101,7 +101,10 @@ int main(int argc, char **argv)
 	// TODO : create function vecteur for get dirX dirY
 	img.map = map;
 	img = get_pos_player(map, img);
-	img.texture = mlx_load_png("textures/bark.png");
+	img.texture_n = mlx_load_png("textures/psg.png");
+	img.texture_s = mlx_load_png("textures/marseille.png");
+	img.texture_e = mlx_load_png("textures/lyon.png");
+	img.texture_w = mlx_load_png("textures/bordeaux.png");
 	img.image = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img, img.cast);
 	mlx_loop_hook(img.mlx, moov_player, &img);
