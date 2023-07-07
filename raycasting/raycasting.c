@@ -1,20 +1,25 @@
 #include "../cub3D.h"
 
 #define BPP sizeof(int32_t)
-void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
+void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 {
 	int	ceiling;
 	int	floor;
 	(void)map;
-	cast.y = 0;
-	while (cast.y < cast.drawStart)
+	cast->y = 0;
+	while (cast->y < cast->drawStart)
 	{
 		ceiling = (map.colorc[0] << 16) | (map.colorc[1] << 8) | map.colorc[2];
-		mlx_put_pixel(img.image, cast.x, cast.y, ceiling);
-		cast.y++;
+		mlx_put_pixel(img.image, cast->x, cast->y, ceiling);
+		cast->y++;
 	}
-	while (cast.y < cast.drawEnd)
+				/* texture per pixel */
+	cast->step = 1.0 * cast->texHeight / cast->lineHeight;
+				/* coord start texture */
+	cast->texPos = (cast->drawStart - HEIGHT / 2 + cast->lineHeight / 2) * cast->step;
+	while (cast->y < cast->drawEnd)
 	{
+
 		/*if (img.dirX == 1.0 && img.dirY == 0.0)
 			cast.color = 0x3272A3; // SUD
 		if (img.dirX == 0.0 && img.dirY == 1.0)
@@ -25,14 +30,16 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 			cast.color = 0xFF0004; // EST
 		*/	
 		//cast.color = 0x3272A3; // SUD
-		mlx_put_pixel(img.image, cast.x, cast.y, cast.color);
-		cast.y++;
+		cast->texY = (int)cast->texPos & (cast->texHeight - 1);
+		cast->texPos += cast->step;
+		mlx_put_pixel(img.image, cast->x, cast->y, cast->color);
+		cast->y++;
 	}
-	while (cast.y < HEIGHT)
+	while (cast->y < HEIGHT)
 	{
 		floor = (map.colorf[0] << 16) | (map.colorf[1] << 8) | map.colorf[2];
-		mlx_put_pixel(img.image, cast.x, cast.y, floor);
-		cast.y++;
+		mlx_put_pixel(img.image, cast->x, cast->y, floor);
+		cast->y++;
 	}
 }
 
@@ -71,11 +78,6 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 			cast->perpWallDist = (cast->sideDistY - cast->deltaDistY);
 		cast->lineHeight = (int)((double)HEIGHT / cast->perpWallDist);
 		calculate_lowest_and_highest_pixel(cast);
-		if (cast->side == 0)
-			cast->wallX = img.posY + cast->perpWallDist * cast->rayDirY;
-		else
-			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
-		cast->wallX -= cast->wallX;
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->color = 0xFF323A;
 		else if (cast->side == 0 && cast->rayDirX <= 0.0)
@@ -84,12 +86,20 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 			cast->color = 0xFF0004;
 		else if (cast->side == 1 && cast->rayDirX < 0.0)
 			cast->color = 0x3272A3;
+					/* calc text */
+		cast->texNum = img.map.map[cast->mapX][cast->mapY];
+		if (cast->side == 0)
+			cast->wallX = img.posY + cast->perpWallDist * cast->rayDirY;
+		else
+			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
+		cast->wallX -= cast->wallX;
+					/* texX */
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;
 		if (cast->side == 1 && cast->rayDirY < 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;
-		floor_wall_ceiling(img, *cast, map);
+		floor_wall_ceiling(img, cast, map);
 		cast->x++;
 	}
 }
