@@ -1,6 +1,10 @@
 #include "../cub3D.h"
 
-#define BPP sizeof(int32_t)
+int get_rgba(int r, int g, int b, int a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
 void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 {
 	int	ceiling;
@@ -9,7 +13,7 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 	cast->y = 0;
 	while (cast->y < cast->drawStart)
 	{
-		ceiling = (map.colorc[0] << 16) | (map.colorc[1] << 8) | map.colorc[2];
+		ceiling = get_rgba(map.colorf[0], map.colorf[1], map.colorf[2], 255);
 		mlx_put_pixel(img.image, cast->x, cast->y, ceiling);
 		cast->y++;
 	}
@@ -21,13 +25,16 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 	{
 		cast->texY = (int)cast->texPos & (cast->texHeight - 1);
 		cast->texPos += cast->step;
-		cast->color = img.texture->pixels[(64 * cast->texY + cast->texX) * img.texture->bytes_per_pixel];
+		int r = img.texture->pixels[(64 * cast->texY + cast->texX) * img.texture->bytes_per_pixel];
+		int g = img.texture->pixels[(64 * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 1];
+		int b = img.texture->pixels[(64 * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 2];
+		cast->color = get_rgba(r, g, b, 255);
 		mlx_put_pixel(img.image, cast->x, cast->y, cast->color);
 		cast->y++;
 	}
 	while (cast->y < HEIGHT)
 	{
-		floor = (map.colorf[0] << 16) | (map.colorf[1] << 8) | map.colorf[2];
+		floor = get_rgba(map.colorc[0], map.colorc[1], map.colorc[2], 255);
 		mlx_put_pixel(img.image, cast->x, cast->y, floor);
 		cast->y++;
 	}
