@@ -46,7 +46,6 @@ static void	turn_camera(t_map *img)
 	rotSpeed = 0.2;
 	if (mlx_is_key_down(img->mlx, MLX_KEY_LEFT))
 	{
-		printf("feowfouewofew\n");
 		oldDirX = img->dirX;
 		img->dirX = img->dirX * cos(-rotSpeed) - img->dirY * sin(-rotSpeed);
 		img->dirY = oldDirX * sin(-rotSpeed) + img->dirY * cos(-rotSpeed);

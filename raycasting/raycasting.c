@@ -80,10 +80,10 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 			cast->color = 0xFF323A;
 		else if (cast->side == 0 && cast->rayDirX <= 0.0)
 			cast->color = 0x3200A3;
-		else
+		else if (cast->side == 1 && cast->rayDirX >= 0.0)
 			cast->color = 0xFF0004;
-		// if (cast->side == 1 && cast->rayDirX >= 0.0)
-		// if (cast->side == 1 && cast->rayDirX < 0.0)
+		else if (cast->side == 1 && cast->rayDirX < 0.0)
+			cast->color = 0x3272A3;
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;
