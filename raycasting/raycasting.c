@@ -15,16 +15,6 @@ void	floor_wall_ceiling(t_map img, t_cast cast, t_data map)
 	}
 	while (cast.y < cast.drawEnd)
 	{
-		/*if (img.dirX == 1.0 && img.dirY == 0.0)
-			cast.color = 0x3272A3; // SUD
-		if (img.dirX == 0.0 && img.dirY == 1.0)
-			cast.color = 0x3200A3; // NORD
-		if (img.dirX == -1.0 && img.dirY == 0.0)
-			cast.color = 0xFF323A; // WEST
-		if (img.dirX == 0.0 && img.dirY == -1.0)
-			cast.color = 0xFF0004; // EST
-		*/	
-		//cast.color = 0x3272A3; // SUD
 		mlx_put_pixel(img.image, cast.x, cast.y, cast.color);
 		cast.y++;
 	}
@@ -77,13 +67,13 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
 		cast->wallX -= cast->wallX;
 		if (cast->side == 0 && cast->rayDirX > 0.0)
-			cast->color = 0xFF323A;
-		else if (cast->side == 0 && cast->rayDirX <= 0.0)
-			cast->color = 0x3200A3;
-		else if (cast->side == 1 && cast->rayDirX >= 0.0)
-			cast->color = 0xFF0004;
-		else if (cast->side == 1 && cast->rayDirX < 0.0)
-			cast->color = 0x3272A3;
+			cast->color = 0xFF0255;
+		if (cast->side == 0 && cast->rayDirX <= 0.0)
+			cast->color = 0xFF00BC;
+		if (cast->side == 1 && cast->rayDirX > 0.0)
+			cast->color = 0x003CFF;
+		if (cast->side == 1 && cast->rayDirX <= 0.0)
+			cast->color = 0x00FFAB;
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;
