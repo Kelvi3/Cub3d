@@ -1,11 +1,11 @@
-NO ./textures/bark.png
-SO ./textures/bark.png                                 
+NO ./textures/psg.png
+SO ./textures/marseille.png                                 
 
-WE ./textures/bark.png
-EA ./textures/bark.png
+WE ./textures/lyon.png
+EA ./textures/bordeaux.png
 
-F 55,100,0
-C 55,110,0
+F 55,200,0
+C 55,0,0
 
 1111111111 111111111
 10000000001 10000001

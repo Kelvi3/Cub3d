@@ -23,14 +23,17 @@ static void	moov_left_and_right(t_map *img, double movespeed)
 {
 	if (mlx_is_key_down(img->mlx, MLX_KEY_A))
 	{
-		if (img->map.map[(int)(img->posX + img->dirY)][(int)(img->posY)] != '1')
+		if (img->map.map[(int)(img->posX + img->dirY)][(int)(img->posY)] \
+				!= '1')
 			img->posX += img->dirY * movespeed;
-		if (img->map.map[(int)img->posX][(int)(img->posY + (-img->dirX))] != '1')
+		if (img->map.map[(int)img->posX][(int)(img->posY + (-img->dirX))]
+				!= '1')
 			img->posY += (-img->dirX) * movespeed;
 	}
 	if (mlx_is_key_down(img->mlx, MLX_KEY_D))
 	{
-		if (img->map.map[(int)(img->posX + (-img->dirY))][(int)img->posY] != '1')
+		if (img->map.map[(int)(img->posX + (-img->dirY))][(int)img->posY] \
+				!= '1')
 			img->posX += (-img->dirY) * movespeed;
 		if (img->map.map[(int)img->posX][(int)(img->posY + img->dirX)] != '1')
 			img->posY += img->dirX * movespeed;
@@ -68,7 +71,6 @@ void	moov_player(void *param)
 {
 	double	movespeed;
 	t_map	*img;
-	//t_cast	cast;
 
 	img = (t_map *)param;
 	movespeed = 0.3;
@@ -82,16 +84,3 @@ void	moov_player(void *param)
 	}
 	*img = raycasting(img->map, *img, (*img).cast);
 }
-/*
-void	moov_camera(void *param)
-{
-	t_map	*img;
-
-	img = (t_map *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_terminate(img->mlx);
-		return ;
-	}
-	//img = raycasting(img->map, *img, *img->cast);
-}*/

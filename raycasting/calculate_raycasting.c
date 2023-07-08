@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_raycasting.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/08 14:04:58 by lulaens           #+#    #+#             */
+/*   Updated: 2023/07/08 14:06:39 by lulaens          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 void	calculate_pos_and_dir(t_cast *cast, t_map img)
@@ -50,8 +62,6 @@ void	calculate_step_and_initial_sidedist(t_cast *cast, t_map img)
 	}
 }
 
-/* calcule le pixel le plus bas et le plus haut pour remplir la bande actuelle */
-
 void	calculate_lowest_and_highest_pixel(t_cast *cast)
 {
 	cast->drawStart = -cast->lineHeight / 2 + HEIGHT / 2;
@@ -60,4 +70,12 @@ void	calculate_lowest_and_highest_pixel(t_cast *cast)
 	cast->drawEnd = cast->lineHeight / 2 + HEIGHT / 2;
 	if (cast->drawEnd >= HEIGHT)
 		cast->drawEnd = HEIGHT - 1;
+}
+
+void	calculate_distance_perpendicular_ray(t_cast *cast)
+{
+	if (cast->side == 0)
+		cast->perpWallDist = (cast->sideDistX - cast->deltaDistX);
+	else
+		cast->perpWallDist = (cast->sideDistY - cast->deltaDistY);
 }
