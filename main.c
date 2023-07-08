@@ -17,23 +17,23 @@ t_map	player_view(t_map img, char c)
 {
 	if (c == 'S')
 	{
-		img.dirX = 1.0;
-		img.planeY = 0.66;
+		img.dir_x = 1.0;
+		img.plane_y = -0.66;
 	}
 	if (c == 'N')
 	{
-		img.dirX = -1.0;
-		img.planeY = -0.66;
-	}
-	if (c == 'W')
-	{
-		img.dirY = 1.0;
-		img.planeX = -0.66;
+		img.dir_x = -1.0;
+		img.plane_y = 0.66;
 	}
 	if (c == 'E')
 	{
-		img.dirY = -1.0;
-		img.planeX = 0.66;
+		img.dir_y = 1.0;
+		img.plane_x = 0.66;
+	}
+	if (c == 'W')
+	{
+		img.dir_y = -1.0;
+		img.plane_x = -0.66;
 	}
 	return (img);
 }
@@ -44,10 +44,10 @@ t_map	get_pos_player(t_data map, t_map img)
 	int	j;
 
 	i = 0;
-	img.dirX = 0.0;
-	img.dirY = 0.0;
-	img.planeX = 0.0;
-	img.planeY = 0.0;
+	img.dir_x = 0.0;
+	img.dir_y = 0.0;
+	img.plane_x = 0.0;
+	img.plane_y = 0.0;
 	while (map.map[i])
 	{
 		j = 0;
@@ -56,8 +56,8 @@ t_map	get_pos_player(t_data map, t_map img)
 			if (map.map[i][j] == 'E' || map.map[i][j] == 'W'
 				|| map.map[i][j] == 'S' || map.map[i][j] == 'N')
 			{
-				img.posX = (double)i + 0.5;
-				img.posY = (double)j + 0.5;
+				img.pos_x = (double)i + 0.5;
+				img.pos_y = (double)j + 0.5;
 				img = player_view(img, map.map[i][j]);
 			}
 			j++;
@@ -74,8 +74,6 @@ t_map	load_image(t_data map, t_map img)
 	img.texture_s = mlx_load_png(map.so);
 	img.texture_e = mlx_load_png(map.ea);
 	img.texture_w = mlx_load_png(map.we);
-	img.image = mlx_new_image(img.mlx, 1280, 720);
-	img = raycasting(map, img, img.cast);
 	return (img);
 }
 
@@ -100,10 +98,11 @@ int	main(int argc, char **argv)
 	if (!img.mlx)
 		return (2);
 	img.map = map;
+	img.image = mlx_new_image(img.mlx, 1280, 720);
 	img = load_image(map, img);
+	img = raycasting(map, img, img.cast);
 	mlx_loop_hook(img.mlx, moov_player, &img);
 	mlx_loop(img.mlx);
-	mlx_delete_image(img.mlx, img.image);
 	free_all(&map);
 	return (0);
 }

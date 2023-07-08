@@ -20,8 +20,15 @@
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 
-typedef struct s_data t_data;
-typedef struct s_cast t_cast;
+typedef struct s_data	t_data;
+typedef struct s_cast	t_cast;
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_rgb;
 
 typedef struct s_data
 {
@@ -40,62 +47,61 @@ typedef struct s_data
 
 typedef struct s_cast
 {
-	int color;
-	int x;
-	int y;
-	int texWidth;
-	int texHeight;
-	int texNum;
-	int texY;
-	double step;
-	double texPos;
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
-	int stepX;
-	int stepY;
-	int hit; // was there a wall hit?
-	int side;
-	int lineHeight;
-	int drawStart;
-	int drawEnd;
-	double wallX;
-	int texX;
-} t_cast;
+	int		color;
+	int		x;
+	int		y;
+	int		tex_width;
+	int		tex_height;
+	int		tex_y;
+	int		tex_x;
+	int		map_x;
+	int		map_y;
+	double	step;
+	double	tex_pos;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+}				t_cast;
 
 typedef struct	s_map
 {
-	mlx_t	*mlx;
-	mlx_image_t *image;
-	mlx_texture_t *texture;
-	mlx_texture_t *texture_n;
-	mlx_texture_t *texture_s;
-	mlx_texture_t *texture_e;
-	mlx_texture_t *texture_w;
-	void	*mlx_win;
-	char	*addr;
-	void	*img;
-	void	*floor;
-	int		width;
-	int		height;
-	int		bits_per_pixel;
-	int		line_length;
-int		endian;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	t_data	map;
-	t_cast	cast;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	mlx_texture_t	*texture;
+	mlx_texture_t	*texture_n;
+	mlx_texture_t	*texture_s;
+	mlx_texture_t	*texture_e;
+	mlx_texture_t	*texture_w;
+	void			*mlx_win;
+	char			*addr;
+	void			*img;
+	void			*floor;
+	int				width;
+	int				height;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	t_data			map;
+	t_cast			cast;
 }				t_map;
 
 		/*	PARSE	*/
@@ -127,10 +133,12 @@ void	free_all(t_data *map);
 /* RAYCASTING */
 t_map	raycasting(t_data map, t_map img, t_cast cast);
 void	my_mlx_pixel_put(t_map *data, int x, int y, int color);
+void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map);
 
 void	calculate_step_and_initial_sidedist(t_cast *cast, t_map img);
 void	calculate_pos_and_dir(t_cast *cast, t_map img);
 void	calculate_lowest_and_highest_pixel(t_cast *cast);
+void	calculate_distance_perpendicular_ray(t_cast *cast);
 
 /* moov_player */
 
