@@ -5,7 +5,7 @@ static void	moov_up_and_down(t_map *img, double movespeed)
 {
 	if (mlx_is_key_down(img->mlx, MLX_KEY_W))
 	{
-		if (img->map.map[(int)(img->pos_x + img->dir_x)][(int)img->pos_x] != '1')
+		if (img->map.map[(int)(img->pos_x + img->dir_x)][(int)img->pos_y] != '1')
 			img->pos_x += img->dir_x * movespeed;
 		if (img->map.map[(int)img->pos_x][(int)(img->pos_y + img->dir_y)] != '1')
 			img->pos_y += img->dir_y * movespeed;

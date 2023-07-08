@@ -1,13 +1,13 @@
 
 
 
-NO ./rscs/textures/wall/north.png
+NO ./textures/north.png
 
 
-            SO ./rscs/textures/wall/south.png
+            SO ./textures/south.png
 
-WE ./rscs/textures/wall/west.png
-      EA ./rscs/textures/wall/east.png
+WE ./textures/west.png
+      EA ./textures/east.png
 
   F                         255,100,0
   C                                                     255,0,0

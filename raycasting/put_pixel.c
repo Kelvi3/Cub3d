@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:56:07 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 14:32:26 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:25:35 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 	int		floor;
 	t_rgb	color;
 
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
 	(void)map;
 	cast->y = 0;
 	ceiling = get_rgba(map.colorf[0], map.colorf[1], map.colorf[2], 255);

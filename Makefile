@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/07/08 13:57:49 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/08 16:16:58 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,6 @@ fclean: clean
 
 re: fclean all
 
+run: all
+	./cub3D maps/valid/map2.cub
 .PHONY : all clean fclean re
-
-
