@@ -17,6 +17,8 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 typedef struct s_data t_data;
 typedef struct s_cast t_cast;
