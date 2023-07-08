@@ -25,10 +25,10 @@ t_map get_pos_player(t_data map, t_map img)
 
 	i = 0;
 	j = 0;
-	img.dirX = 0.0;
-	img.dirY = 0.0;
-	img.planeX = 0.0;
-	img.planeY = 0.0;
+	img.dir_x = 0.0;
+	img.dir_y = 0.0;
+	img.plane_x = 0.0;
+	img.plane_y = 0.0;
 	while (map.map[i])
 	{
 		j = 0;
@@ -37,27 +37,27 @@ t_map get_pos_player(t_data map, t_map img)
 			if (map.map[i][j] == 'E' || map.map[i][j] == 'W'
 				|| map.map[i][j] == 'S' || map.map[i][j] == 'N')
 			{
-				img.posX = (double)i + 0.5;
-				img.posY = (double)j + 0.5;
+				img.pos_x = (double)i + 0.5;
+				img.pos_y = (double)j + 0.5;
 				if (map.map[i][j] == 'S')
 				{
-					img.dirX = 1.0;
-					img.planeY = 0.66;
+					img.dir_x = 1.0;
+					img.plane_y = 0.66;
 				}
 				if (map.map[i][j] == 'N')
 				{
-					img.dirX = -1.0;
-					img.planeY = -0.66;
+					img.dir_x = -1.0;
+					img.plane_y = -0.66;
 				}
 				if (map.map[i][j] == 'W')
 				{
-					img.dirY = 1.0;
-					img.planeX = -0.66;
+					img.dir_y = 1.0;
+					img.plane_x = -0.66;
 				}
 				if (map.map[i][j] == 'E')
 				{
-					img.dirY = -1.0;
-					img.planeX = 0.66;
+					img.dir_y = -1.0;
+					img.plane_x = 0.66;
 				}
 			}
 			j++;

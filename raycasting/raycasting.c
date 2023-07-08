@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:07:27 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 14:08:16 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 14:37:12 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,32 @@ void	dda(t_cast *cast, t_map img)
 	cast->hit = 0;
 	while (cast->hit == 0)
 	{
-		if (cast->sideDistX < cast->sideDistY)
+		if (cast->side_dist_x < cast->side_dist_y)
 		{
-			cast->sideDistX += cast->deltaDistX;
-			cast->mapX += cast->stepX;
+			cast->side_dist_x += cast->delta_dist_x;
+			cast->map_x += cast->step_x;
 			cast->side = 0;
 		}
 		else
 		{
-			cast->sideDistY += cast->deltaDistY;
-			cast->mapY += cast->stepY;
+			cast->side_dist_y += cast->delta_dist_y;
+			cast->map_y += cast->step_y;
 			cast->side = 1;
 		}
-		if (img.map.map[cast->mapX][cast->mapY] == '1')
+		if (img.map.map[cast->map_x][cast->map_y] == '1')
 			cast->hit = 1;
 	}
 }
 
 t_map	dir_texture(t_map img, t_cast *cast)
 {
-	if (cast->side == 0 && cast->rayDirX > 0.0)
+	if (cast->side == 0 && cast->ray_dir_x > 0.0)
 		img.texture = img.texture_s;
-	if (cast->side == 0 && cast->rayDirX < 0.0)
+	if (cast->side == 0 && cast->ray_dir_x < 0.0)
 		img.texture = img.texture_n;
-	if (cast->side == 1 && cast->rayDirY < 0.0)
+	if (cast->side == 1 && cast->ray_dir_y < 0.0)
 		img.texture = img.texture_e;
-	if (cast->side == 1 && cast->rayDirY > 0.0)
+	if (cast->side == 1 && cast->ray_dir_y > 0.0)
 		img.texture = img.texture_w;
 	return (img);
 }
@@ -55,20 +55,19 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 		calculate_step_and_initial_sidedist(cast, img);
 		dda(cast, img);
 		calculate_distance_perpendicular_ray(cast);
-		cast->lineHeight = (int)((double)HEIGHT / cast->perpWallDist);
+		cast->line_height = (int)((double)HEIGHT / cast->perp_wall_dist);
 		calculate_lowest_and_highest_pixel(cast);
-		cast->texNum = img.map.map[cast->mapX][cast->mapY];
 		if (cast->side == 0)
-			cast->wallX = img.posY + cast->perpWallDist * cast->rayDirY;
+			cast->wall_x = img.pos_y + cast->perp_wall_dist * cast->ray_dir_y;
 		else
-			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
-		cast->wallX -= floor(cast->wallX);
+			cast->wall_x = img.pos_x + cast->perp_wall_dist * cast->ray_dir_x;
+		cast->wall_x -= floor(cast->wall_x);
 		img = dir_texture(img, cast);
-		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
-		if (cast->side == 0 && cast->rayDirX > 0.0)
-			cast->texX = cast->texWidth - cast->texX - 1;
-		if (cast->side == 1 && cast->rayDirY < 0.0)
-			cast->texX = cast->texWidth - cast->texX - 1;
+		cast->tex_x = (int)(cast->wall_x * (double)cast->tex_width);
+		if (cast->side == 0 && cast->ray_dir_x > 0.0)
+			cast->tex_x = cast->tex_width - cast->tex_x - 1;
+		if (cast->side == 1 && cast->ray_dir_y < 0.0)
+			cast->tex_x = cast->tex_width - cast->tex_x - 1;
 		floor_wall_ceiling(img, cast, map);
 		cast->x++;
 	}
@@ -76,8 +75,8 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 
 t_map	raycasting(t_data map, t_map img, t_cast cast)
 {
-	cast.texWidth = 64;
-	cast.texHeight = 64;
+	cast.tex_width = 64;
+	cast.tex_height = 64;
 	cast.y = 0;
 	cast.x = 0;
 	img.map = map;
