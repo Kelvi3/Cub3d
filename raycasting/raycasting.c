@@ -25,7 +25,7 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 	cast->texPos = ((double)cast->drawStart - (double)HEIGHT / 2.0 + (double)cast->lineHeight / 2.0) * cast->step;
 	while (cast->y < cast->drawEnd)
 	{
-		cast->texY = (int)cast->texPos & (cast->texHeight - 1);
+		cast->texY = (int)cast->texPos;// & (cast->texHeight - 1);
 		cast->texPos += cast->step;
 		r = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel];
 		g = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 1];
@@ -110,6 +110,8 @@ t_map raycasting(t_data map, t_map img, t_cast cast)
 	img.map = map;
 	cast.y = 0;
 	cast.x = 0;
+
+
 	raycasting_loop(img, &cast, map);
 	mlx_image_to_window(img.mlx, img.image, 0, 0);
 	return (img);

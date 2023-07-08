@@ -104,6 +104,7 @@ int	main(int argc, char **argv)
 	img = load_image(map, img);
 	mlx_loop_hook(img.mlx, moov_player, &img);
 	mlx_loop(img.mlx);
+	mlx_delete_image(img.mlx, img.image);
 	free_all(&map);
 	return (0);
 }
