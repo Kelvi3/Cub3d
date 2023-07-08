@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:34:28 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/05 08:37:41 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/07 18:14:58 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,13 @@
 
 static int	open_path(t_data *map)
 {
-
-	//fd = open(map->we, O_RDONLY);
-	//printf("map->ea = %s\n", map->ea);
-	//printf("fd = %d\n", fd);
-	if (access(map->ea, F_OK) == -1)
+	if (open(map->ea, O_RDONLY) == -1)
 		return (1);
-	if (access(map->ea, F_OK) == -1)
+	if (open(map->no, O_RDONLY) == -1)
 		return (1);
-	if (access(map->ea, F_OK) == -1)
+	if (open(map->we, O_RDONLY) == -1)
 		return (1);
-	if (access(map->ea, F_OK) == -1)
-		return (1);
-	if (access(map->ea, F_OK) == -1)
+	if (open(map->so, O_RDONLY) == -1)
 		return (1);
 	return (0);
 }
@@ -42,8 +36,8 @@ int	check_path(t_data *map)
 	}
 	if (open_path(map) == 1)
 	{
-		//ft_putstr_fd("Error path\n", 2);
-		return (0);
+		ft_putstr_fd("Error path\n", 2);
+		return (1);
 	}
 	return (0);
 }

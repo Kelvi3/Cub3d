@@ -6,11 +6,23 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:32:15 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 14:54:33 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/07 18:14:37 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+static char	*delete_new_line(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n' && str[i] != ' ')
+		i++;
+	if (str[i] == '\n' || str[i] == ' ')
+		str[i] = '\0';
+	return (str);
+}
 
 static void	copy_no_and_so(t_data *map, int i, int j)
 {
@@ -20,6 +32,7 @@ static void	copy_no_and_so(t_data *map, int i, int j)
 		j += 2;
 		pass_space(map->cub[i], &j);
 		map->no = ft_substr(map->cub[i], j, ft_strlen(map->cub[i]));
+		map->no = delete_new_line(map->no);
 	}
 	else if (map->cub[i][j] == 'S' && map->cub[i][j + 1] \
 			&& map->cub[i][j + 1] == 'O')
@@ -27,6 +40,7 @@ static void	copy_no_and_so(t_data *map, int i, int j)
 		j += 2;
 		pass_space(map->cub[i], &j);
 		map->so = ft_substr(map->cub[i], j, ft_strlen(map->cub[i]));
+		map->so = delete_new_line(map->so);
 	}
 }
 
@@ -38,6 +52,7 @@ static void	copy_we_and_ea(t_data *map, int i, int j)
 		j += 2;
 		pass_space(map->cub[i], &j);
 		map->we = ft_substr(map->cub[i], j, ft_strlen(map->cub[i]));
+		map->we = delete_new_line(map->we);
 	}
 	else if (map->cub[i][j] == 'E' && map->cub[i][j + 1] \
 		&& map->cub[i][j + 1] == 'A')
@@ -45,6 +60,7 @@ static void	copy_we_and_ea(t_data *map, int i, int j)
 		j += 2;
 		pass_space(map->cub[i], &j);
 		map->ea = ft_substr(map->cub[i], j, ft_strlen(map->cub[i]));
+		map->ea = delete_new_line(map->ea);
 	}
 }
 

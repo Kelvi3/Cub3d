@@ -9,6 +9,10 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 {
 	int	ceiling;
 	int	floor;
+	int	r;
+	int	g;
+	int	b;
+
 	(void)map;
 	cast->y = 0;
 	while (cast->y < cast->drawStart)
@@ -17,17 +21,15 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 		mlx_put_pixel(img.image, cast->x, cast->y, ceiling);
 		cast->y++;
 	}
-				/* texture per pixel */
-	cast->step = 1.0 * cast->texHeight / cast->lineHeight;
-				/* coord start texture */
-	cast->texPos = (cast->drawStart - HEIGHT / 2 + cast->lineHeight / 2) * cast->step;
+	cast->step = 1.0 * (double)cast->texHeight / (double)cast->lineHeight;
+	cast->texPos = ((double)cast->drawStart - (double)HEIGHT / 2.0 + (double)cast->lineHeight / 2.0) * cast->step;
 	while (cast->y < cast->drawEnd)
 	{
 		cast->texY = (int)cast->texPos;// & (cast->texHeight - 1);
 		cast->texPos += cast->step;
-		int r = img.texture->pixels[(img.texture->width* cast->texY + cast->texX) * img.texture->bytes_per_pixel];
-		int g = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 1];
-		int b = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 2];
+		r = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel];
+		g = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 1];
+		b = img.texture->pixels[(img.texture->width * cast->texY + cast->texX) * img.texture->bytes_per_pixel + 2];
 		cast->color = get_rgba(r, g, b, 255);
 		mlx_put_pixel(img.image, cast->x, cast->y, cast->color);
 		cast->y++;
@@ -81,15 +83,14 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 		else
 			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
 		cast->wallX -= floor(cast->wallX);
-	/*	if (cast->side == 0 && cast->rayDirX > 0.0)
-			img.texture = mlx_load_png("textures/leavesop.png");
-		else if (cast->side == 0 && cast->rayDirX <= 0.0)
-			img.texture = mlx_load_png("textures/waterf1.png");
-		else if (cast->side == 1 && cast->rayDirX >= 0.0)
-			img.texture = mlx_load_png("textures/leavesop.png");
-		else if (cast->side == 1 && cast->rayDirX < 0.0)
-			img.texture = mlx_load_png("textures/leavesop.png");*/
-			/* calc text */
+		if (cast->side == 0 && cast->rayDirX > 0.0)
+			img.texture = img.texture_s;
+		if (cast->side == 0 && cast->rayDirX < 0.0)
+			img.texture = img.texture_n;
+		if (cast->side == 1 && cast->rayDirY < 0.0)
+			img.texture = img.texture_e;
+		if (cast->side == 1 && cast->rayDirY > 0.0)
+			img.texture = img.texture_w;
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
 			cast->texX = cast->texWidth - cast->texX - 1;

@@ -64,14 +64,6 @@ t_map get_pos_player(t_data map, t_map img)
 		}
 		i++;
 	}
-	if (img.dirX == 1.0 && img.dirY == 0.0)
-		printf("regarde au SUD posX = %f posY = %f\n", img.posX, img.posY);
-	if (img.dirX == 0.0 && img.dirY == 1.0)
-		printf("regarde au NORD posX = %f posY = %f dirX = %f dirY = %f\n", img.posX, img.posY, img.dirX, img.dirY);
-	if (img.dirX == -1.0 && img.dirY == 0.0)
-		printf("regarde a l WEST posX = %f posY = %f\n", img.posX, img.posY);
-	if (img.dirX == 0.0 && img.dirY == -1.0)
-		printf("regarde a l EST posX = %f posY = %f\n", img.posX, img.posY);
 	return (img);
 }
 
@@ -101,7 +93,16 @@ int main(int argc, char **argv)
 	// TODO : create function vecteur for get dirX dirY
 	img.map = map;
 	img = get_pos_player(map, img);
-	img.texture = mlx_load_png("textures/bark.png");
+	img.texture_n = mlx_load_png("textures/psg.png");
+	img.texture_s = mlx_load_png("textures/marseille.png");
+	img.texture_e = mlx_load_png("textures/lyon.png");
+	img.texture_w = mlx_load_png("textures/bordeaux.png");
+	/*
+	img.texture_n = mlx_load_png(map.no);
+	img.texture_s = mlx_load_png(map.so);
+	img.texture_e = mlx_load_png(map.ea);
+	img.texture_w = mlx_load_png(map.we);
+	*/
 	img.image = mlx_new_image(img.mlx, 1280, 720);
 	img = raycasting(map, img, img.cast);
 	mlx_loop_hook(img.mlx, moov_player, &img);

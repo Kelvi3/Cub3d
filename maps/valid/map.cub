@@ -1,10 +1,11 @@
-NO ./textures/wall.xpm 
-SO ./textures/wall.xpm 
-WE ./textures/wall.xpm 
-EA ./textures/wall.xpm
+NO ./textures/bark.png
+SO ./textures/bark.png                                 
+
+WE ./textures/bark.png
+EA ./textures/bark.png
 
 F 55,100,0
-C 55,100,0
+C 55,110,0
 
 1111111111 111111111
 10000000001 10000001
