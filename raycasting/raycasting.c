@@ -84,12 +84,12 @@ void	raycasting_loop(t_map img, t_cast *cast, t_data map)
 			cast->wallX = img.posX + cast->perpWallDist * cast->rayDirX;
 		cast->wallX -= floor(cast->wallX);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
-			img.texture = img.texture_n;
-		if (cast->side == 0 && cast->rayDirX <= 0.0)
 			img.texture = img.texture_s;
-		if (cast->side == 1 && cast->rayDirX >= 0.0)
+		if (cast->side == 0 && cast->rayDirX < 0.0)
+			img.texture = img.texture_n;
+		if (cast->side == 1 && cast->rayDirY < 0.0)
 			img.texture = img.texture_e;
-		if (cast->side == 1 && cast->rayDirX < 0.0)
+		if (cast->side == 1 && cast->rayDirY > 0.0)
 			img.texture = img.texture_w;
 		cast->texX = (int)(cast->wallX * (double)cast->texWidth);
 		if (cast->side == 0 && cast->rayDirX > 0.0)
