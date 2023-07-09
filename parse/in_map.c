@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:36:01 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:17:13 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:58:33 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	case_in_map(t_data *map, int i, int j)
 			&& map->map[i][j] != '\n' \
 			&& not_player(map->map[i][j]))
 	{
-		ft_putstr_fd("Error in map\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	return (0);
@@ -29,7 +29,7 @@ static int	count_nb_player(int c)
 {
 	if (c > 1 || c < 1)
 	{
-		ft_putstr_fd("Error player\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	return (0);

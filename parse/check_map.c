@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:18:03 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:41:38 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:57:36 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_case_map(t_data *map, int i, int j)
 	{
 		if (check_zero(map, i, j) == 1)
 		{
-			ft_putstr_fd("Error map open\n", 2);
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 	}
@@ -75,7 +75,7 @@ int	check_map(t_data *map)
 			{
 				if (check_zero_one(map, i, j) == 1)
 				{
-					ft_putstr_fd("Error map open\n", 2);
+					ft_putstr_fd("Error\n", 2);
 					return (1);
 				}
 			}

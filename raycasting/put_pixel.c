@@ -6,11 +6,11 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:56:07 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 14:32:26 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:34:58 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+#include "cub3D.h"
 
 static int	get_rgba(int r, int g, int b, int a)
 {
@@ -21,7 +21,8 @@ static void	set_rgb(t_rgb *color, t_map img, t_cast *cast)
 {
 	int	pixel;
 
-	pixel = (img.texture->width * cast->tex_y + cast->tex_x) * img.texture->bytes_per_pixel;
+	pixel = (img.texture->width * cast->tex_y + cast->tex_x) \
+						* img.texture->bytes_per_pixel;
 	color->r = img.texture->pixels[pixel];
 	color->g = img.texture->pixels[pixel + 1];
 	color->b = img.texture->pixels[pixel + 2];
@@ -51,6 +52,9 @@ void	floor_wall_ceiling(t_map img, t_cast *cast, t_data map)
 	int		floor;
 	t_rgb	color;
 
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
 	(void)map;
 	cast->y = 0;
 	ceiling = get_rgba(map.colorf[0], map.colorf[1], map.colorf[2], 255);

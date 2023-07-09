@@ -6,7 +6,7 @@
 #    By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/29 20:04:35 by tcazenav          #+#    #+#              #
-#    Updated: 2023/07/08 13:57:49 by lulaens          ###   ########.fr        #
+#    Updated: 2023/07/09 14:12:22 by lulaens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,9 @@ SRC = 	main.c \
 		raycasting/put_pixel.c \
 		moov_player.c \
 
-CC = gcc
+CC = clang 
 
-CFLAGS = -I/usr/include -O3 -Wall -Werror -Wextra -g
+CFLAGS = -I/usr/include -O3 -Wall -Werror -Wextra -g -I.
 
 OBJ = $(SRC:.c=.o)
 
@@ -42,20 +42,19 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft
-	#@cmake -B build
-	#@cmake --build build -j4
+	@cmake ./MLX42 -B ./MLX42/build && make -C ./MLX42/build -j4	
 	@$(CC) $(CFLAGS) $(OBJ) gnl/get_next_line.c libft/libft.a MLX42/build/libmlx42.a -I include -ldl -pthread -lglfw -lm -o $(NAME)
 
 clean:
 	@rm -f $(OBJ) && echo "CLEAN OBJ"
 	@make clean -C libft -s && echo "LIBFT CLEANED"
-	#@make clean -C minilibx-linux -s && echo "MINILIBX-LINUX CLEANED"
+	@rm -rf /MLX/build && echo "MINILIBX-LINUX CLEANED"
 
 fclean: clean
 			@rm -f $(NAME) && echo "CLEAN ALL"
 
 re: fclean all
 
-.PHONY : all clean fclean re
-
-
+run: all
+	./cub3D maps/valid/map2.cub
+.PHONY : all, clean, fclean, re, libmlx

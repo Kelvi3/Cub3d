@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 12:42:13 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/20 12:01:33 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:58:15 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	size_zero_exit(t_data *map)
 {
-	ft_putstr_fd("Error map\n", 2);
+	ft_putstr_fd("Error\n", 2);
 	free_all(map);
 	exit(1);
 }
@@ -37,7 +37,7 @@ void	add_all_cube(char **argv, t_data *map)
 	map->cub[i] = get_next_line(fd);
 	if (map->cub[i] == NULL)
 	{
-		ft_putstr_fd("Errorrr\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return ;
 	}
 	while (map->cub[i])
@@ -73,7 +73,7 @@ int	check_end_cub(t_data *map, int i)
 		{
 			if (map->cub[i][0] != '\n')
 			{
-				ft_putstr_fd("Error map\n", 2);
+				ft_putstr_fd("Error\n", 2);
 				return (1);
 			}
 			i++;

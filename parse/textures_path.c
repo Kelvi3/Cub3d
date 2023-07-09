@@ -6,13 +6,11 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 14:34:28 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 13:13:44 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:58:54 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include "cub3D.h"
 
 static int	open_path(t_data *map)
 {
@@ -31,12 +29,12 @@ int	check_path(t_data *map)
 {
 	if (!map->ea || !map->no || !map->so || !map->we)
 	{
-		ft_putstr_fd("Error path\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	if (open_path(map) == 1)
 	{
-		ft_putstr_fd("Error path\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	return (0);

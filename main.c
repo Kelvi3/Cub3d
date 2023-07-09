@@ -6,7 +6,7 @@
 /*   By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:46:22 by tcazenav          #+#    #+#             */
-/*   Updated: 2023/07/08 13:59:42 by tcazenav         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:16:48 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,7 @@ int	main(int argc, char **argv)
 	t_data	map;
 	t_map	img;
 
-	if (argc != 2)
-		ft_putstr_fd("Error arg\n", 2);
-	if (argc != 2)
-		return (1);
-	init_value_data(&map);
+	init_value_data(argc, &map);
 	check_extension(argv[1], ".cub");
 	add_all_cube(argv, &map);
 	if (parse(&map) == 1)
