@@ -79,7 +79,7 @@ static void	turn_camera(t_map *img)
 	double	old_plane_x;
 	double	rot_speed;
 
-	rot_speed = 0.2;
+	rot_speed = 0.1;
 	old_dir_x = 0;
 	old_plane_x = 0;
 	key_right(img, old_dir_x, old_plane_x, rot_speed);
@@ -96,6 +96,16 @@ static void	turn_camera(t_map *img)
 	}
 }
 
+void	end_program(void *param)
+{
+	t_map *img;
+
+	img = (t_map *)param;
+	mlx_terminate(img->mlx);
+	free_all(&img->map);
+	exit(0);
+}
+
 void	moov_player(void *param)
 {
 	double	movespeed;
@@ -106,7 +116,7 @@ void	moov_player(void *param)
 	moov_up_and_down(img, movespeed);
 	moov_left_and_right(img, movespeed);
 	turn_camera(img);
-
+	mlx_close_hook(img->mlx, end_program, param);
 	if (mlx_is_key_down(img->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(img->mlx);
