@@ -6,14 +6,19 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:13:17 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 15:26:13 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/09 14:17:34 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-void	init_value_data(t_data *map)
+void	init_value_data(int argc, t_data *map)
 {
+	if (argc != 2)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit (1);
+	}
 	map->color_c = NULL;
 	map->color_f = NULL;
 	map->cub = NULL;

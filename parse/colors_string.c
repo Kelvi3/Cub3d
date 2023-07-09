@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:43:15 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 14:08:53 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:58:01 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	not_number_and_mark(char *color, int i)
 		if ((color[i] < '0' || color[i] > '9') \
 				&& color[i] != ',')
 		{
-			ft_putstr_fd("Error parse color\n", 2);
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 		i++;
@@ -45,7 +45,7 @@ int	check_color(char *color)
 	}
 	if (c != 2)
 	{
-		ft_putstr_fd("Error parse color\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	if (not_number_and_mark(color, i) == 1)

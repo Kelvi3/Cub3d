@@ -6,11 +6,11 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:56:07 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/08 16:25:35 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:34:58 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+#include "cub3D.h"
 
 static int	get_rgba(int r, int g, int b, int a)
 {
@@ -21,7 +21,8 @@ static void	set_rgb(t_rgb *color, t_map img, t_cast *cast)
 {
 	int	pixel;
 
-	pixel = (img.texture->width * cast->tex_y + cast->tex_x) * img.texture->bytes_per_pixel;
+	pixel = (img.texture->width * cast->tex_y + cast->tex_x) \
+						* img.texture->bytes_per_pixel;
 	color->r = img.texture->pixels[pixel];
 	color->g = img.texture->pixels[pixel + 1];
 	color->b = img.texture->pixels[pixel + 2];

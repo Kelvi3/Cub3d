@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:43:27 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/19 14:55:33 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:57:50 by lulaens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	add_color_in_tab_f(t_data *map)
 	tmp = ft_split(map->color_f, ',');
 	if (!tmp || len_double_tab(tmp) != 3)
 	{
-		ft_putstr_fd("Error color\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	while (tmp[i])
@@ -52,7 +52,7 @@ int	add_color_in_tab_c(t_data *map)
 	tmp = ft_split(map->color_c, ',');
 	if (!tmp)
 	{
-		ft_putstr_fd("Error color\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		return (1);
 	}
 	while (tmp[i])
@@ -73,7 +73,7 @@ int	check_len_int_tab(int tab[3])
 	{
 		if (tab[i] > 255 || tab[i] < 0)
 		{
-			ft_putstr_fd("Error int\n", 2);
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 		i++;

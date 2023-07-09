@@ -119,7 +119,7 @@ int		count_size_map(t_data *map, int i);
 int		check_path(t_data *map);
 int		not_player(char c);
 int		check_char_player_egal(char c);
-void	init_value_data(t_data *map);
+void	init_value_data(int argc, t_data *map);
 void	add_all_cube(char **argv, t_data *map);
 void	check_extension(char *str, char *ext);
 void	add_path_texture(t_data *map);
