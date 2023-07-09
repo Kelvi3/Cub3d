@@ -103,6 +103,7 @@ int	main(int argc, char **argv)
 	img = raycasting(map, img, img.cast);
 	mlx_loop_hook(img.mlx, moov_player, &img);
 	mlx_loop(img.mlx);
+	mlx_terminate(img.mlx);
 	free_all(&map);
 	return (0);
 }

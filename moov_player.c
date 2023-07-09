@@ -71,17 +71,18 @@ void	moov_player(void *param)
 {
 	double	movespeed;
 	t_map	*img;
-	//t_cast	cast;
 
 	img = (t_map *)param;
 	movespeed = 0.1;
 	moov_up_and_down(img, movespeed);
 	moov_left_and_right(img, movespeed);
 	turn_camera(img);
-	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
+
+	if (mlx_is_key_down(img->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(img->mlx);
-		return ;
+		free_all(&img->map);
+		exit(0);
 	}
 	*img = raycasting(img->map, *img, (*img).cast);
 }
