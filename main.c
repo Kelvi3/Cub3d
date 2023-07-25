@@ -6,12 +6,22 @@
 /*   By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:46:22 by tcazenav          #+#    #+#             */
-/*   Updated: 2023/07/09 14:16:48 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:19:12 by tcazenav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MLX42/include/MLX42/MLX42.h"
 #include "cub3D.h"
+
+void	end_program(void *param)
+{
+	t_map	*img;
+
+	img = (t_map *)param;
+	mlx_terminate(img->mlx);
+	free_all(&img->map);
+	exit(0);
+}
 
 t_map	player_view(t_map img, char c)
 {
@@ -25,12 +35,12 @@ t_map	player_view(t_map img, char c)
 		img.dir_x = -1.0;
 		img.plane_y = 0.66;
 	}
-	if (c == 'E')
+	if (c == 'W')
 	{
 		img.dir_y = 1.0;
 		img.plane_x = 0.66;
 	}
-	if (c == 'W')
+	if (c == 'E')
 	{
 		img.dir_y = -1.0;
 		img.plane_x = -0.66;

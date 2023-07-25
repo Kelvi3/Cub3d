@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 14:00:11 by lulaens           #+#    #+#             */
-/*   Updated: 2023/07/09 14:03:46 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:19:02 by tcazenav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,6 @@ static void	turn_camera(t_map *img)
 		img->plane_y = old_plane_x * sin(rot_speed) + img->plane_y \
 						* cos(rot_speed);
 	}
-}
-
-void	end_program(void *param)
-{
-	t_map *img;
-
-	img = (t_map *)param;
-	mlx_terminate(img->mlx);
-	free_all(&img->map);
-	exit(0);
 }
 
 void	moov_player(void *param)

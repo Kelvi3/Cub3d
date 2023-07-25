@@ -1,7 +1,8 @@
-NO ./rscs/textures/wall/dirt_64_32.png
-SO ./rscs/textures/wall/dirt_64_32.png
-WE ./rscs/textures/wall/dirt_64_32.png
-EA ./rscs/textures/wall/dirt_64_32.png
+NO ./textures/psg.png
+SO ./textures/marseille.png                                 
+
+WE ./textures/lyon.png
+EA ./textures/bordeaux.png
 
 F 255,100,0
 C 255,0,0

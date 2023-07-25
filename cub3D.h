@@ -1,4 +1,16 @@
-# ifndef  CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcazenav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/25 09:11:51 by tcazenav          #+#    #+#             */
+/*   Updated: 2023/07/25 09:12:28 by tcazenav         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef  CUB3D_H
 # define CUB3D_H
 
 # include <math.h>
@@ -76,7 +88,7 @@ typedef struct s_cast
 	double	wall_x;
 }				t_cast;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
@@ -129,6 +141,7 @@ void	pass_space(char *str, int *i);
 		/*	UTILS	*/
 void	free_tab(char **tab);
 void	free_all(t_data *map);
+void	end_program(void *param);
 
 /* RAYCASTING */
 t_map	raycasting(t_data map, t_map img, t_cast cast);

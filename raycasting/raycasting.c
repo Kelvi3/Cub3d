@@ -41,9 +41,9 @@ t_map	dir_texture(t_map img, t_cast *cast)
 	if (cast->side == 0 && cast->ray_dir_x < 0.0)
 		img.texture = img.texture_n;
 	if (cast->side == 1 && cast->ray_dir_y < 0.0)
-		img.texture = img.texture_e;
-	if (cast->side == 1 && cast->ray_dir_y > 0.0)
 		img.texture = img.texture_w;
+	if (cast->side == 1 && cast->ray_dir_y > 0.0)
+		img.texture = img.texture_e;
 	return (img);
 }
 

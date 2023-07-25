@@ -6,7 +6,7 @@
 /*   By: lulaens <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 12:01:44 by lulaens           #+#    #+#             */
-/*   Updated: 2023/06/15 15:17:16 by lulaens          ###   ########.fr       */
+/*   Updated: 2023/07/25 09:15:06 by tcazenav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_list
 }					t_list;
 
 # ifndef  BUFFER_SIZE
-# define  BUFFER_SIZE 20
+#  define BUFFER_SIZE 20
 # endif
 
 t_list	*ft_lstnew(void *content);
